@@ -1,0 +1,41 @@
+
+body {
+    background: #ffffff;
+    color: #343a40;
+}
+
+.sidebar {
+    min-height: 100vh;
+    background: #f8f9fa;
+    border-right: 1px solid #dee2e6;
+}
+
+.sidebar h5 {
+    font-weight: 600;
+}
+
+.sidebar nav button {
+    display: block;
+    width: 100%;
+    border: none;
+    background: transparent;
+    text-align: left;
+    padding: 8px 10px;
+    border-radius: 5px;
+    color: #495057;
+    font-size: 14px;
+}
+
+.sidebar nav button:hover {
+    background: #e9ecef;
+}
+
+.content-container {
+    max-width: 850px;
+    margin: auto;
+}
+
+.content-container h1 {
+    font-weight: 600;
+    margin-bottom: 25px;
+}
