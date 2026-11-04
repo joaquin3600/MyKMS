@@ -239,14 +239,15 @@
     /* Active document */
 
     .sidebar-content nav button.document-link.active {
-        background-color: var(--accent-color);
-        color: #ffffff !important;
+        background-color: var(--accent-soft);
+        color: var(--accent-text) !important;
         font-weight: 600;
         border-radius: 6px;
     }
 
     .sidebar-content nav button.document-link.active:hover {
-        background-color: var(--accent-hover);
+        background-color: var(--accent-soft);
+        color: var(--accent-text) !important;
     }
 
 
