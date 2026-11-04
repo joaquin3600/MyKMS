@@ -62,6 +62,73 @@
 
 /* #endregion */
 
+/* #region App Header */
+
+    .app-header {
+        position: sticky;
+        top: 0;
+        z-index: 1050;
+
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        height: 64px;
+        padding: 0 24px;
+
+        background: var(--surface-bg);
+        border-bottom: 1px solid var(--border-color);
+    }
+
+    .header-left,
+    .header-right {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+    }
+
+    .app-title {
+        color: var(--text-primary);
+        font-weight: 600;
+    }
+
+    .app-title i {
+        color: var(--accent);
+        margin-right: 4px;
+    }
+
+    .sidebar-toggle {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+
+        width: 36px;
+        height: 36px;
+        padding: 0;
+
+        border: 1px solid var(--border-color);
+        border-radius: 8px;
+
+        background: var(--surface-bg);
+        color: var(--text-primary);
+
+        font-size: 20px;
+        cursor: pointer;
+    }
+
+    .sidebar-toggle:hover {
+        background: var(--hover-bg);
+        border-color: var(--accent);
+        color: var(--accent);
+    }
+
+    .sidebar-toggle:focus-visible {
+        outline: 3px solid var(--focus-ring);
+        outline-offset: 2px;
+    }
+
+/* #endregion */
+
 
 /* #region Sidebar */
 
@@ -348,3 +415,40 @@
     }
 
 /* #endregion */
+
+/* #region Collapsible Sidebar */
+
+    .sidebar {
+        flex: 0 0 16.666667%;
+        max-width: 16.666667%;
+        min-width: 0;
+        overflow: hidden;
+
+        transition:
+            flex-basis 300ms ease,
+            max-width 300ms ease,
+            opacity 200ms ease,
+            padding 300ms ease;
+    }
+
+    .sidebar-hidden {
+        flex-basis: 0 !important;
+        max-width: 0 !important;
+        min-width: 0 !important;
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+        opacity: 0;
+        border-right: 0 !important;
+        pointer-events: none;
+    }
+
+    .main-expanded {
+        flex: 0 0 100%;
+        max-width: 100%;
+    }
+
+/* #endregion */
+
+    main {
+        transition: flex-basis 300ms ease, max-width 300ms ease;
+    }

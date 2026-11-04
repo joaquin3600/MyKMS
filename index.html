@@ -31,6 +31,50 @@
     <link rel="stylesheet" href="./style.css">
 </head>
 <body>
+    <!-- #region Header -->
+
+    <header class="app-header">
+
+        <div class="header-left">
+
+            <button id="sidebar-toggle"
+                    class="sidebar-toggle"
+                    type="button"
+                    aria-label="Hide sidebar"
+                    aria-expanded="true"
+                    title="Toggle sidebar">
+
+                <i class="bi bi-list" aria-hidden="true"></i>
+
+            </button>
+
+            <h5 class="app-title mb-0">
+                <i class="bi bi-journal-bookmark"></i>
+                MyKMS
+            </h5>
+
+        </div>
+
+        <div class="header-right">
+
+            <button id="theme-toggle"
+                    class="theme-toggle"
+                    type="button"
+                    aria-label="Switch to dark mode"
+                    aria-pressed="false"
+                    title="Change theme">
+
+                <i id="theme-toggle-icon"
+                class="bi bi-moon-stars"
+                aria-hidden="true"></i>
+
+            </button>
+
+        </div>
+
+    </header>
+
+    <!-- #endregion Header -->
     <!-- Reading progress bar -->
     <div class="reading-progress"
         role="progressbar"
@@ -43,31 +87,11 @@
             class="reading-progress-bar"></div>
 
     </div>
-    
+
     <div class="container-fluid">
         <div class="row">
 
             <aside class="col-md-3 col-lg-2 sidebar p-3">
-
-                <div class="sidebar-header d-flex align-items-center justify-content-between mb-4">
-                    <h5 class="mb-0">
-                        <i class="bi bi-journal-bookmark"></i> MyKMS
-                    </h5>
-
-                    <button id="theme-toggle"
-                            class="theme-toggle"
-                            type="button"
-                            aria-label="Switch to dark mode"
-                            aria-pressed="false"
-                            title="Change theme">
-
-                        <i id="theme-toggle-icon"
-                        class="bi bi-moon-stars"
-                        aria-hidden="true"></i>
-
-                    </button>
-                </div>
-
                 <input id="search"
                     class="form-control form-control-sm mb-3"
                     placeholder="Search..." />

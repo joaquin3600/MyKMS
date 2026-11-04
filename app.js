@@ -10,6 +10,9 @@ const tocSidebar    = document.getElementById("table-of-contents");
 const tocNavigation = document.getElementById("toc-navigation");
 const readingProgress = document.querySelector(".reading-progress");
 const readingProgressBar = document.getElementById("reading-progress-bar");
+const sidebar = document.querySelector(".sidebar");
+const sidebarToggle = document.getElementById("sidebar-toggle");
+const main = document.querySelector("main");
 
 tocSidebar.hidden   = true;
 
@@ -423,5 +426,28 @@ search.addEventListener("input", () => {
 
     // Recalculate when the window is resized
     window.addEventListener("resize", updateReadingProgress);
+
+/* #endregion */
+
+
+/* #region Sidebar Toggle */
+
+    sidebarToggle.addEventListener("click", () => {
+
+        const isHidden = sidebar.classList.toggle("sidebar-hidden");
+
+        main.classList.toggle("main-expanded", isHidden);
+
+        sidebarToggle.setAttribute(
+            "aria-expanded",
+            String(!isHidden)
+        );
+
+        sidebarToggle.setAttribute(
+            "aria-label",
+            isHidden ? "Show sidebar" : "Hide sidebar"
+        );
+
+    });
 
 /* #endregion */
