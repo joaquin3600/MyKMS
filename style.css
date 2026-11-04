@@ -198,7 +198,7 @@
 
 /* #region Navigation */
 
-    .sidebar nav button {
+    .sidebar-content nav button {
         display: block;
         width: 100%;
         border: none;
@@ -210,12 +210,12 @@
         font-size: 14px;
     }
 
-    .sidebar nav button:hover {
+    .sidebar-content nav button:hover {
         background: var(--hover-bg);
         color: var(--text-primary);
     }
 
-    .sidebar nav button.active {
+    .sidebar-content nav button.active {
         background: var(--accent-soft);
         color: var(--accent-text);
         font-weight: 600;
