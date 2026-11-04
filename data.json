@@ -1,6 +1,15 @@
 
 [
     {
+        "category": "Main",
+        "documents": [
+            {
+                "title": "CheatSheet",
+                "file": "Documents/Main/CheatSheet.html"
+            }
+        ]
+    },   
+    {
         "category": "Programming",
         "documents": [
             {
