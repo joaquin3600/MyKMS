@@ -1,13 +1,14 @@
 
 let categories = [];
 
-const navigation = document.getElementById("navigation");
-const title = document.getElementById("title");
-const content = document.getElementById("content");
-const search = document.getElementById("search");
-const tocSidebar = document.getElementById("table-of-contents");
+const backToTop     = document.getElementById("back-to-top");
+const navigation    = document.getElementById("navigation");
+const title         = document.getElementById("title");
+const content       = document.getElementById("content");
+const search        = document.getElementById("search");
+const tocSidebar    = document.getElementById("table-of-contents");
 const tocNavigation = document.getElementById("toc-navigation");
-tocSidebar.hidden = true;
+tocSidebar.hidden   = true;
 
 fetch("./data.json")
     .then(response => response.json())
@@ -26,12 +27,17 @@ function renderNavigation(items) {
         section.className = "mb-2";
 
         section.innerHTML = `
-            <button class="btn btn-sm w-100 text-start fw-semibold"
+            <button class="btn btn-sm w-100 text-start fw-semibold category-toggle"
+                    type="button"
                     data-bs-toggle="collapse"
-                    data-bs-target="#category-${index}">
+                    data-bs-target="#category-${index}"
+                    aria-expanded="true">
+
                 <i class="bi bi-folder me-2"></i>
+
                 ${category.category}
-                <i class="bi bi-chevron-down float-end"></i>
+
+                <i class="bi bi-chevron-down float-end category-chevron"></i>
             </button>
 
             <div class="collapse show" id="category-${index}">
@@ -39,7 +45,26 @@ function renderNavigation(items) {
             </div>
         `;
 
+
         navigation.appendChild(section);
+
+
+        const collapseElement = section.querySelector(`#category-${index}`);
+        const categoryButton = section.querySelector(".category-toggle");
+        const chevron = section.querySelector(".category-chevron");
+
+        // Update chevron when category expands
+        collapseElement.addEventListener("show.bs.collapse", () => {
+            chevron.classList.replace("bi-chevron-right", "bi-chevron-down");
+            categoryButton.setAttribute("aria-expanded", "true");
+        });
+
+        // Update chevron when category collapses
+        collapseElement.addEventListener("hide.bs.collapse", () => {
+            chevron.classList.replace("bi-chevron-down", "bi-chevron-right");
+            categoryButton.setAttribute("aria-expanded", "false");
+        });
+
 
         const documentContainer =
             section.querySelector(`#documents-${index}`);
@@ -235,6 +260,47 @@ async function loadDocument(doc) {
                 tocObserver.observe(heading);
             });
         }
+
+
+
+
+/* #endregion */
+
+
+/* #region Back to Top */
+
+    // Show or hide the button depending on scroll position
+    function updateBackToTopVisibility() {
+
+        if (window.scrollY > 300) {
+            backToTop.classList.add("visible");
+        } else {
+            backToTop.classList.remove("visible");
+        }
+
+    }
+
+    // Listen for page scrolling
+    window.addEventListener("scroll", updateBackToTopVisibility, {
+        passive: true
+    });
+
+    // Return to the top when clicking the button
+    backToTop.addEventListener("click", () => {
+
+        const prefersReducedMotion = window.matchMedia(
+            "(prefers-reduced-motion: reduce)"
+        ).matches;
+
+        window.scrollTo({
+            top: 0,
+            behavior: prefersReducedMotion ? "auto" : "smooth"
+        });
+
+    });
+
+    // Initialize button visibility
+    updateBackToTopVisibility();
 
 /* #endregion */
 
