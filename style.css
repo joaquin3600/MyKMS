@@ -450,8 +450,7 @@
         overflow: visible;
 
         transition:
-            margin-left 300ms ease,
-            opacity 250ms ease;
+            margin-left 300ms ease;
     }
 
     .sidebar-content {
@@ -465,7 +464,6 @@
 
     .sidebar-column.sidebar-hidden {
         margin-left: -16.666667%;
-        opacity: 0;
         pointer-events: none;
     }
 
