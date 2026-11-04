@@ -45,7 +45,6 @@
 
 /* #endregion */
 
-
 /* #region Global styles */
 
     * {
@@ -129,7 +128,6 @@
 
 /* #endregion */
 
-
 /* #region Sidebar */
 
     .sidebar-column {
@@ -143,7 +141,6 @@
     }
 
 /* #endregion */
-
 
 /* #region Theme toggle */
 
@@ -175,7 +172,6 @@
 
 /* #endregion */
 
-
 /* #region Search */
 
     #search {
@@ -194,7 +190,6 @@
     }
 
 /* #endregion */
-
 
 /* #region Navigation */
 
@@ -241,8 +236,21 @@
         color: var(--text-secondary);
     }
 
-/* #endregion */
+    /* Active document */
 
+    .sidebar-content nav button.document-link.active {
+        background-color: var(--accent-color);
+        color: #ffffff !important;
+        font-weight: 600;
+        border-radius: 6px;
+    }
+
+    .sidebar-content nav button.document-link.active:hover {
+        background-color: var(--accent-hover);
+    }
+
+
+/* #endregion */
 
 /* #region Content */
 
@@ -269,7 +277,6 @@
 
 /* #endregion */
 
-
 /* #region Accessibility */
 
     @media (prefers-reduced-motion: reduce) {
@@ -281,8 +288,6 @@
     }
 
 /* #endregion */
-
-
 
 /* #region Table of Contents */
 
@@ -355,8 +360,6 @@
     }
 
 /* #endregion */
-
-
 
 /* #region Back to Top */
 
@@ -469,6 +472,7 @@
         flex: 0 0 100%;
         max-width: 100%;
     }
+
 
 /* #endregion */
 
@@ -597,21 +601,20 @@
 
 /* #endregion */
 
-
 /* #region Code Highlighting - Dark Mode */
 
-:root[data-theme="dark"] .content-container pre {
-    background: #263449;
-    border: 1px solid #3b4d65;
-    border-radius: 8px;
-    padding: 16px;
-    overflow-x: auto;
-}
+    :root[data-theme="dark"] .content-container pre {
+        background: #263449;
+        border: 1px solid #3b4d65;
+        border-radius: 8px;
+        padding: 16px;
+        overflow-x: auto;
+    }
 
-:root[data-theme="dark"] .content-container pre code {
-    background: transparent;
-    color: #dbeafe;
-}
+    :root[data-theme="dark"] .content-container pre code {
+        background: transparent;
+        color: #dbeafe;
+    }
 
 /* #endregion */
 
@@ -682,36 +685,35 @@
 
 /* #endregion */
 
-
 /* #region Code Blocks - Light Mode */
 
-:root:not([data-theme="dark"]) .code-block {
-    background: #f1f5f9;
-    border-color: #cbd5e1;
-}
+    :root:not([data-theme="dark"]) .code-block {
+        background: #f1f5f9;
+        border-color: #cbd5e1;
+    }
 
-:root:not([data-theme="dark"]) .code-block-header {
-    background: #e2e8f0;
-    border-bottom-color: #cbd5e1;
-}
+    :root:not([data-theme="dark"]) .code-block-header {
+        background: #e2e8f0;
+        border-bottom-color: #cbd5e1;
+    }
 
-:root:not([data-theme="dark"]) .code-language {
-    color: #334155;
-}
+    :root:not([data-theme="dark"]) .code-language {
+        color: #334155;
+    }
 
-:root:not([data-theme="dark"]) .copy-code {
-    color: #334155;
-    border-color: #94a3b8;
-}
+    :root:not([data-theme="dark"]) .copy-code {
+        color: #334155;
+        border-color: #94a3b8;
+    }
 
-:root:not([data-theme="dark"]) .copy-code:hover {
-    background: #cbd5e1;
-    border-color: #2563eb;
-    color: #1d4ed8;
-}
+    :root:not([data-theme="dark"]) .copy-code:hover {
+        background: #cbd5e1;
+        border-color: #2563eb;
+        color: #1d4ed8;
+    }
 
-:root:not([data-theme="dark"]) .code-block pre {
-    background: transparent !important;
-}
+    :root:not([data-theme="dark"]) .code-block pre {
+        background: transparent !important;
+    }
 
 /* #endregion */

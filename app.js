@@ -79,7 +79,10 @@ function renderNavigation(items) {
 
             const button = document.createElement("button");
 
-            button.className = "btn btn-sm w-100 text-start text-secondary";
+
+            button.className = "btn btn-sm w-100 text-start text-secondary document-link";
+            button.dataset.file = doc.file;
+
             button.innerHTML = `
                 <i class="bi bi-file-earmark-text me-2"></i>
                 ${doc.title}
@@ -89,6 +92,23 @@ function renderNavigation(items) {
 
             documentContainer.appendChild(button);
         });
+    });
+}
+
+
+function setActiveDocument(doc) {
+    const documentButtons = navigation.querySelectorAll(".document-link");
+
+    documentButtons.forEach(button => {
+        const isActive = button.dataset.file === doc.file;
+
+        button.classList.toggle("active", isActive);
+
+        if (isActive) {
+            button.setAttribute("aria-current", "page");
+        } else {
+            button.removeAttribute("aria-current");
+        }
     });
 }
 
@@ -102,6 +122,7 @@ async function loadDocument(doc) {
 
         const html = await response.text();
 
+        setActiveDocument(doc);
         title.textContent = doc.title;
         content.innerHTML = html;
         highlightCodeBlocks();
