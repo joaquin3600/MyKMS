@@ -5,6 +5,9 @@ const navigation = document.getElementById("navigation");
 const title = document.getElementById("title");
 const content = document.getElementById("content");
 const search = document.getElementById("search");
+const tocSidebar = document.getElementById("table-of-contents");
+const tocNavigation = document.getElementById("toc-navigation");
+tocSidebar.hidden = true;
 
 fetch("./data.json")
     .then(response => response.json())
@@ -70,11 +73,143 @@ async function loadDocument(doc) {
 
         title.textContent = doc.title;
         content.innerHTML = html;
+        generateTableOfContents();
 
     } catch (error) {
         content.textContent = "Error loading document: " + error.message;
     }
 }
+
+
+
+/* #region Table of Contents */
+
+    let tocObserver = null;
+
+    // Generate a URL-friendly ID from a heading
+        function generateSlug(text) 
+        {
+            return text
+                .toLowerCase()
+                .normalize("NFD")
+                .replace(/[\u0300-\u036f]/g, "")
+                .replace(/[^a-z0-9]+/g, "-")
+                .replace(/^-|-$/g, "");
+        }
+
+    // Generate the document outline
+        function generateTableOfContents() {
+
+            // Disconnect the previous observer
+            if (tocObserver) {
+                tocObserver.disconnect();
+            }
+
+            tocNavigation.innerHTML = "";
+
+            const headings = content.querySelectorAll("h1, h2, h3");
+
+            // Hide the TOC if there are no headings
+            if (headings.length === 0) {
+                tocSidebar.hidden = true;
+                return;
+            }
+
+            tocSidebar.hidden = false;
+
+            const usedIds = new Set();
+
+            headings.forEach((heading, index) => {
+
+                // Generate a unique ID
+                const baseId = heading.id || generateSlug(heading.textContent) || `section-${index + 1}`;
+
+                let id = baseId;
+                let counter = 2;
+
+                while (usedIds.has(id) || (document.getElementById(id) && document.getElementById(id) !== heading)) {
+                    id = `${baseId}-${counter}`;
+                    counter++;
+                }
+
+                heading.id = id;
+                usedIds.add(id);
+
+                // Create TOC link
+                const link = document.createElement("a");
+
+                link.href = `#${id}`;
+                link.textContent = heading.textContent.trim();
+                link.classList.add(`toc-level-${heading.tagName.substring(1)}`);
+
+                link.addEventListener("click", event => {
+                    event.preventDefault();
+
+                    heading.scrollIntoView({
+                        behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches
+                            ? "auto"
+                            : "smooth",
+                        block: "start"
+                    });
+
+                    setActiveTocLink(link);
+                    history.replaceState(null, "", `#${id}`);
+                });
+
+                tocNavigation.appendChild(link);
+            });
+
+            initializeTocObserver(headings);
+        }
+
+    // Highlight the currently visible section
+
+        function setActiveTocLink(activeLink) {
+
+            tocNavigation.querySelectorAll("a").forEach(link => {
+                link.classList.remove("active");
+            });
+
+            activeLink.classList.add("active");
+        }
+
+    // Observe headings while scrolling
+
+        function initializeTocObserver(headings) {
+
+            tocObserver = new IntersectionObserver(entries => {
+
+                const visibleHeadings = entries
+                    .filter(entry => entry.isIntersecting)
+                    .sort((a, b) =>
+                        a.boundingClientRect.top - b.boundingClientRect.top
+                    );
+
+                if (visibleHeadings.length === 0) return;
+
+                const activeHeading = visibleHeadings[0].target;
+
+                const activeLink = tocNavigation.querySelector(
+                    `a[href="#${CSS.escape(activeHeading.id)}"]`
+                );
+
+                if (activeLink) {
+                    setActiveTocLink(activeLink);
+                }
+
+            }, {
+                root: null,
+                rootMargin: "-15% 0px -70% 0px",
+                threshold: 0
+            });
+
+            headings.forEach(heading => {
+                tocObserver.observe(heading);
+            });
+        }
+
+/* #endregion */
+
 
 search.addEventListener("input", () => {
     const query = search.value.toLowerCase();
