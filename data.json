@@ -2,17 +2,24 @@
 [
     {
         "category": "Programming",
-        "title": "Blazor Hybrid",
-        "content": "Blazor Hybrid permite desarrollar aplicaciones utilizando componentes Blazor y .NET."
+        "documents": [
+            {
+                "title": "Blazor",
+                "file": "Documents/Programming/Blazor.html"
+            },
+            {
+                "title": "CSharp",
+                "file": "Documents/Programming/CSharp.md"
+            }
+        ]
     },
     {
-        "category": "Programming",
-        "title": "C#",
-        "content": "C# es un lenguaje de programación orientado a objetos."
-    },
-    {
-        "category": "Unreal Engine",
-        "title": "Introduction",
-        "content": "Unreal Engine es un motor de desarrollo 3D."
+        "category": "Unreal",
+        "documents": [
+            {
+                "title": "Introduction",
+                "file": "Documents/Unreal/Introduction.md"
+            }
+        ]
     }
 ]
