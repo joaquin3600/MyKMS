@@ -10,10 +10,10 @@ const tocSidebar    = document.getElementById("table-of-contents");
 const tocNavigation = document.getElementById("toc-navigation");
 const readingProgress = document.querySelector(".reading-progress");
 const readingProgressBar = document.getElementById("reading-progress-bar");
-const sidebar = document.querySelector(".sidebar");
+const sidebar = document.querySelector(".sidebar-column");
 const sidebarToggle = document.getElementById("sidebar-toggle");
 const main = document.querySelector("main");
-
+const exportPdfButton = document.getElementById("export-pdf");
 tocSidebar.hidden   = true;
 
 fetch("./data.json")
@@ -104,6 +104,7 @@ async function loadDocument(doc) {
 
         title.textContent = doc.title;
         content.innerHTML = html;
+        highlightCodeBlocks();
         generateTableOfContents();
         updateReadingProgress();
 
@@ -111,6 +112,27 @@ async function loadDocument(doc) {
         content.textContent = "Error loading document: " + error.message;
     }
 }
+
+/* #region Code Highlighting */
+
+    function highlightCodeBlocks() {
+
+        const codeBlocks = content.querySelectorAll("pre code");
+
+        codeBlocks.forEach(block => {
+
+            // Avoid highlighting the same block twice
+            if (block.dataset.highlighted) {
+                return;
+            }
+
+            hljs.highlightElement(block);
+
+        });
+
+    }
+
+/* #endregion */
 
 
 
@@ -350,6 +372,12 @@ search.addEventListener("input", () => {
     function applyTheme(theme) {
         document.documentElement.dataset.theme = theme;
 
+        const highlightLight = document.getElementById("highlight-light");
+        const highlightDark = document.getElementById("highlight-dark");
+
+        highlightLight.disabled = theme === "dark";
+        highlightDark.disabled = theme !== "dark";
+
         const isDark = theme === "dark";
 
         themeToggle.setAttribute("aria-pressed", String(isDark));
@@ -449,5 +477,65 @@ search.addEventListener("input", () => {
         );
 
     });
+
+/* #endregion */
+
+/* #region Export PDF */
+
+    exportPdfButton.addEventListener("click", () => {
+
+        if (!content.innerHTML.trim()) {
+            return;
+        }
+
+        window.print();
+
+    });
+
+/* #endregion */
+
+
+/* #region Code Block Copy */
+
+    content.addEventListener("click", async event => {
+
+        const copyButton = event.target.closest(".copy-code");
+
+        if (!copyButton) return;
+
+        const codeBlock = copyButton.closest(".code-block");
+        const code = codeBlock.querySelector("pre code");
+
+        try {
+
+            await navigator.clipboard.writeText(code.textContent);
+
+            copyButton.innerHTML = `
+                <i class="bi bi-check2"></i>
+                Copied!
+            `;
+
+            copyButton.classList.add("copied");
+
+            setTimeout(() => {
+
+                copyButton.innerHTML = `
+                    <i class="bi bi-clipboard"></i>
+                    Copy
+                `;
+
+                copyButton.classList.remove("copied");
+
+            }, 2000);
+
+        } catch (error) {
+
+            console.error("Unable to copy code:", error);
+
+        }
+
+    });
+
+    
 
 /* #endregion */
