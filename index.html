@@ -31,7 +31,19 @@
     <link rel="stylesheet" href="./style.css">
 </head>
 <body>
+    <!-- Reading progress bar -->
+    <div class="reading-progress"
+        role="progressbar"
+        aria-label="Reading progress"
+        aria-valuemin="0"
+        aria-valuemax="100"
+        aria-valuenow="0">
 
+        <div id="reading-progress-bar"
+            class="reading-progress-bar"></div>
+
+    </div>
+    
     <div class="container-fluid">
         <div class="row">
 
@@ -112,7 +124,7 @@
         <i class="bi bi-arrow-up" aria-hidden="true"></i>
 
     </button>
-    
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
 
     <!-- Markdown parser -->
@@ -121,4 +133,5 @@
     <!-- Application -->
     <script src="./app.js"></script>
 </body>
+
 </html>

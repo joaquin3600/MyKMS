@@ -327,3 +327,24 @@
     }
 
 /* #endregion */
+
+/* #region Reading Progress */
+
+    .reading-progress {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 3px;
+        z-index: 1100;
+        background: transparent;
+    }
+
+    .reading-progress-bar {
+        width: 0%;
+        height: 100%;
+        background: var(--accent);
+        transition: width 100ms linear;
+    }
+
+/* #endregion */

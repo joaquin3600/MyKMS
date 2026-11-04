@@ -8,6 +8,9 @@ const content       = document.getElementById("content");
 const search        = document.getElementById("search");
 const tocSidebar    = document.getElementById("table-of-contents");
 const tocNavigation = document.getElementById("toc-navigation");
+const readingProgress = document.querySelector(".reading-progress");
+const readingProgressBar = document.getElementById("reading-progress-bar");
+
 tocSidebar.hidden   = true;
 
 fetch("./data.json")
@@ -99,6 +102,7 @@ async function loadDocument(doc) {
         title.textContent = doc.title;
         content.innerHTML = html;
         generateTableOfContents();
+        updateReadingProgress();
 
     } catch (error) {
         content.textContent = "Error loading document: " + error.message;
@@ -377,5 +381,47 @@ search.addEventListener("input", () => {
 
     // Theme button event
     themeToggle.addEventListener("click", toggleTheme);
+
+/* #endregion */
+
+/* #region Reading Progress */
+
+    function updateReadingProgress() {
+
+        const documentHeight = content.scrollHeight;
+        const viewportHeight = window.innerHeight;
+
+        // Hide progress when no document is loaded
+        if (!content.innerHTML || documentHeight <= viewportHeight) {
+            readingProgress.style.display = "none";
+            readingProgressBar.style.width = "0%";
+            readingProgress.setAttribute("aria-valuenow", "0");
+            return;
+        }
+
+        readingProgress.style.display = "block";
+
+        // Calculate the reading progress
+        const contentTop = content.getBoundingClientRect().top + window.scrollY;
+        const scrollableHeight = documentHeight - viewportHeight;
+
+        const scrolled = window.scrollY - contentTop;
+
+        const progress = Math.min(
+            100,
+            Math.max(0, (scrolled / scrollableHeight) * 100)
+        );
+
+        readingProgressBar.style.width = `${progress}%`;
+        readingProgress.setAttribute("aria-valuenow", Math.round(progress));
+    }
+
+    // Update progress while scrolling
+    window.addEventListener("scroll", updateReadingProgress, {
+        passive: true
+    });
+
+    // Recalculate when the window is resized
+    window.addEventListener("resize", updateReadingProgress);
 
 /* #endregion */
