@@ -164,14 +164,42 @@ async function loadDocument(doc) {
 
     // Highlight the currently visible section
 
-        function setActiveTocLink(activeLink) {
+    function setActiveTocLink(activeLink) {
 
-            tocNavigation.querySelectorAll("a").forEach(link => {
-                link.classList.remove("active");
+        // Remove active class from all TOC links
+        tocNavigation.querySelectorAll("a").forEach(link => {
+            link.classList.remove("active");
+        });
+
+        // Highlight current section
+        activeLink.classList.add("active");
+
+        // Automatically scroll the TOC to keep the active link visible
+        const sidebarRect = tocSidebar.getBoundingClientRect();
+        const linkRect = activeLink.getBoundingClientRect();
+
+        const offset = 40;
+
+        // If the active link is above the visible area
+        if (linkRect.top < sidebarRect.top + offset) {
+
+            tocSidebar.scrollTo({
+                top: tocSidebar.scrollTop + linkRect.top - sidebarRect.top - offset,
+                behavior: "smooth"
             });
 
-            activeLink.classList.add("active");
         }
+
+        // If the active link is below the visible area
+        else if (linkRect.bottom > sidebarRect.bottom) {
+
+            tocSidebar.scrollTo({
+                top: tocSidebar.scrollTop + linkRect.bottom - sidebarRect.bottom + offset,
+                behavior: "smooth"
+            });
+
+        }
+    }
 
     // Observe headings while scrolling
 

@@ -19,22 +19,27 @@
             --focus-ring: rgba(37, 99, 235, 0.25);
         }
 
+
         :root[data-theme="dark"] {
             /* Dark theme */
             color-scheme: dark;
 
-            --page-bg: #111827;
-            --sidebar-bg: #0b1220;
-            --surface-bg: #1f2937;
-            --text-primary: #f3f4f6;
-            --text-secondary: #9ca3af;
-            --border-color: #374151;
-            --hover-bg: #1f2937;
+            --page-bg: #171923;
+            --sidebar-bg: #141620;
+            --surface-bg: #202330;
+
+            --text-primary: #d1d5db;
+            --text-secondary: #9298a5;
+
+            --border-color: #303442;
+            --hover-bg: #252938;
+
             --accent: #60a5fa;
             --accent-hover: #93c5fd;
-            --accent-soft: #172f50;
-            --accent-text: #bfdbfe;
-            --input-bg: #111827;
+            --accent-soft: #202f48;
+            --accent-text: #a9ceff;
+
+            --input-bg: #191c27;
             --focus-ring: rgba(96, 165, 250, 0.3);
         }
 
@@ -194,6 +199,14 @@
 
 
 /* #region Table of Contents */
+
+    /* Heading scroll offset */
+
+    .content-container article h1,
+    .content-container article h2,
+    .content-container article h3 {
+        scroll-margin-top: 96px;
+    }
 
     .toc-sidebar {
         position: sticky;
