@@ -14,6 +14,8 @@ const sidebar = document.querySelector(".sidebar-column");
 const sidebarToggle = document.getElementById("sidebar-toggle");
 const main = document.querySelector("main");
 const exportPdfButton = document.getElementById("export-pdf");
+const focusModeToggle = document.getElementById("focus-mode-toggle");
+const focusModeIcon = document.getElementById("focus-mode-icon");
 tocSidebar.hidden   = true;
 
 fetch("./data.json")
@@ -746,3 +748,74 @@ search.addEventListener("input", () => {
     
 
 /* #endregion */
+
+// #region Focus Mode
+
+    function toggleFocusMode() {
+
+        const isActive =
+            document.body.classList.toggle("focus-mode");
+
+        main.classList.add("focus-mode-transition");
+
+        sidebar.classList.toggle(
+            "sidebar-hidden",
+            isActive
+        );
+
+        main.classList.toggle(
+            "main-expanded",
+            isActive
+        );
+
+        focusModeToggle.setAttribute(
+            "aria-pressed",
+            isActive
+        );
+
+        focusModeToggle.setAttribute(
+            "aria-label",
+            isActive
+                ? "Exit Focus Mode"
+                : "Enter Focus Mode"
+        );
+
+        focusModeToggle.setAttribute(
+            "title",
+            isActive
+                ? "Exit Focus Mode"
+                : "Focus Mode"
+        );
+
+        focusModeIcon.classList.toggle(
+            "bi-arrows-angle-expand",
+            !isActive
+        );
+
+        focusModeIcon.classList.toggle(
+            "bi-arrows-angle-contract",
+            isActive
+        );
+
+        setTimeout(() => {
+            main.classList.remove("focus-mode-transition");
+        }, 300);
+    }
+
+    focusModeToggle.addEventListener(
+        "click",
+        toggleFocusMode
+    );
+
+    document.addEventListener("keydown", event => {
+
+        if (
+            event.key === "Escape" &&
+            document.body.classList.contains("focus-mode")
+        ) {
+            toggleFocusMode();
+        }
+
+    });
+
+// #endregion Focus Mode

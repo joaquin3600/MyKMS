@@ -133,6 +133,8 @@
     .sidebar-column {
         background: var(--sidebar-bg);
         border-right: 1px solid var(--border-color);
+        transition:
+            margin-left 300ms ease;
     }
 
     .sidebar-content {
@@ -548,11 +550,6 @@
         pointer-events: none;
     }
 
-    main.main-expanded {
-        margin-left: 0;
-        width: 100%;
-    }
-
     main {
         margin-left: 16.666667%;
         width: calc(100% - 16.666667%);
@@ -561,6 +558,23 @@
             width 300ms ease,
             margin-left 300ms ease;
     }
+
+    main.main-expanded {
+        margin-left: 0;
+        width: 100%;
+        max-width: 100%;
+        min-width: 0;
+    }
+
+    /* #region Focus Mode Layout */
+
+    main.focus-mode-transition {
+        transition:
+            width 300ms ease,
+            margin-left 300ms ease;
+    }
+
+    /* #endregion Focus Mode Layout */
 
 /* #endregion */
 
@@ -891,3 +905,40 @@
 /* #endregion */
 
 
+/* #region Focus Mode */
+
+    body.focus-mode .toc-sidebar {
+        display: none !important;
+    }
+
+    body.focus-mode main > .row {
+        display: block;
+    }
+
+    body.focus-mode main > .row > .col-lg-9 {
+        width: 100%;
+        max-width: 100%;
+    }
+
+    body.focus-mode .content-container {
+        max-width: 950px;
+    }
+
+    .focus-mode-toggle {
+        border: none;
+        background: transparent;
+        color: var(--text-secondary);
+        padding: 6px 10px;
+        border-radius: 6px;
+    }
+
+    .focus-mode-toggle:hover {
+        background: var(--hover-bg);
+        color: var(--text-primary);
+    }
+
+    body.focus-mode .focus-mode-toggle {
+        color: var(--accent);
+    }
+
+/* #endregion Focus Mode */
