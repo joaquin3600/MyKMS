@@ -566,16 +566,6 @@
         min-width: 0;
     }
 
-    /* #region Focus Mode Layout */
-
-    main.focus-mode-transition {
-        transition:
-            width 300ms ease,
-            margin-left 300ms ease;
-    }
-
-    /* #endregion Focus Mode Layout */
-
 /* #endregion */
 
 /* #region Export PDF */
@@ -908,16 +898,15 @@
 /* #region Focus Mode */
 
     body.focus-mode .toc-sidebar {
-        display: none !important;
-    }
-
-    body.focus-mode main > .row {
-        display: block;
+        visibility: hidden;
+        opacity: 0;
+        pointer-events: none;
     }
 
     body.focus-mode main > .row > .col-lg-9 {
         width: 100%;
         max-width: 100%;
+        flex: 0 0 100%;
     }
 
     body.focus-mode .content-container {

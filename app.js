@@ -756,7 +756,6 @@ search.addEventListener("input", () => {
         const isActive =
             document.body.classList.toggle("focus-mode");
 
-        main.classList.add("focus-mode-transition");
 
         sidebar.classList.toggle(
             "sidebar-hidden",
@@ -797,9 +796,6 @@ search.addEventListener("input", () => {
             isActive
         );
 
-        setTimeout(() => {
-            main.classList.remove("focus-mode-transition");
-        }, 300);
     }
 
     focusModeToggle.addEventListener(
