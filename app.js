@@ -125,6 +125,8 @@ async function loadDocument(doc) {
         setActiveDocument(doc);
         title.textContent = doc.title;
         content.innerHTML = html;
+        applyContentHierarchy();
+        initializeH2Collapse();
         highlightCodeBlocks();
         generateTableOfContents();
         updateReadingProgress();
@@ -133,6 +135,144 @@ async function loadDocument(doc) {
         content.textContent = "Error loading document: " + error.message;
     }
 }
+
+function applyContentHierarchy() {
+
+    const elements = content.querySelectorAll(
+        "h1, h2, h3, h4, p, ul, ol, table, .code-block"
+    );
+
+    let currentLevel = 1;
+
+    elements.forEach(element => {
+
+        if (/^H[1-4]$/.test(element.tagName)) {
+            currentLevel = Number(element.tagName.substring(1));
+            return;
+        }
+
+        element.dataset.contentLevel = currentLevel;
+    });
+}
+
+
+
+/* #region initialize H2 Collapse */
+
+    function initializeH2Collapse() {
+
+        const headings = Array.from(
+            content.querySelectorAll("h2")
+        );
+
+        headings.forEach(heading => {
+
+            // Avoid adding the control twice
+            if (heading.querySelector(".heading-chevron")) {
+                return;
+            }
+
+            const chevron = document.createElement("i");
+
+            chevron.className =
+                "bi bi-chevron-down heading-chevron";
+
+            heading.prepend(chevron);
+
+            heading.classList.add("collapsible-heading");
+
+            // Create the section wrapper
+            const section = document.createElement("div");
+            section.className = "h2-section";
+
+            // Create an inner wrapper for the animated content
+            const sectionContent = document.createElement("div");
+            sectionContent.className = "h2-section-content";
+
+            let nextElement = heading.nextElementSibling;
+
+            while (
+                nextElement &&
+                !nextElement.matches("h1, h2")
+            ) {
+
+                const currentElement = nextElement;
+                nextElement = nextElement.nextElementSibling;
+
+                sectionContent.appendChild(currentElement);
+            }
+
+            section.appendChild(sectionContent);
+            heading.after(section);
+
+            heading.addEventListener("click", () => {
+                toggleH2Section(
+                    heading,
+                    section,
+                    chevron
+                );
+            });
+
+        });
+    }
+
+
+    function toggleH2Section(heading, section, chevron) {
+
+        const isCollapsed =
+            heading.classList.toggle("collapsed");
+
+        section.classList.toggle(
+            "collapsed",
+            isCollapsed
+        );
+
+        chevron.classList.toggle(
+            "bi-chevron-down",
+            !isCollapsed
+        );
+
+        chevron.classList.toggle(
+            "bi-chevron-right",
+            isCollapsed
+        );
+    }
+
+    document.addEventListener("keydown", event => {
+
+        if (
+            event.ctrlKey &&
+            event.key.toLowerCase() === "m"
+        ) {
+
+            event.preventDefault();
+
+            const headings = content.querySelectorAll(
+                "h2.collapsible-heading"
+            );
+
+            headings.forEach(heading => {
+
+                const section = heading.nextElementSibling;
+                const chevron =
+                    heading.querySelector(".heading-chevron");
+
+                if (!section || !chevron) {
+                    return;
+                }
+
+                heading.classList.add("collapsed");
+                section.classList.add("collapsed");
+
+                chevron.classList.remove("bi-chevron-down");
+                chevron.classList.add("bi-chevron-right");
+            });
+
+        }
+
+    });
+
+/* #endregion */
 
 /* #region Code Highlighting */
 

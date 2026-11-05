@@ -315,7 +315,23 @@
     margin-bottom: 10px;
 }
 
-/* #endregion */
+/* Content indentation by heading level */
+
+.content-container article [data-content-level="1"] {
+    margin-left: 0;
+}
+
+.content-container article [data-content-level="2"] {
+    margin-left: 20px;
+}
+
+.content-container article [data-content-level="3"] {
+    margin-left: 40px;
+}
+
+.content-container article [data-content-level="4"] {
+    margin-left: 60px;
+}
 
 /* #region Accessibility */
 
@@ -641,6 +657,22 @@
             text-decoration: none !important;
         }
 
+        /* Always expand H2 sections when printing */
+
+        .h2-section {
+            display: block !important;
+            grid-template-rows: 1fr !important;
+            opacity: 1 !important;
+        }
+
+        .h2-section-content {
+            overflow: visible !important;
+        }
+
+        .heading-chevron {
+            display: none !important;
+        }
+
     }
 
 /* #endregion */
@@ -758,6 +790,49 @@
 
     :root:not([data-theme="dark"]) .code-block pre {
         background: transparent !important;
+    }
+
+/* #endregion */
+
+/* #region Collapsible H2 headings  */
+
+/* Collapsible H2 headings */
+
+    .content-container article h2.collapsible-heading {
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .content-container article h2.collapsible-heading:hover {
+        color: var(--accent-hover);
+    }
+
+    .heading-chevron {
+        font-size: 0.8em;
+        color: var(--accent);
+        flex-shrink: 0;
+    }
+
+    /* H2 section animation */
+
+    .h2-section {
+        display: grid;
+        grid-template-rows: 1fr;
+        transition:
+            grid-template-rows 250ms ease,
+            opacity 200ms ease;
+        opacity: 1;
+    }
+
+    .h2-section > * {
+        min-height: 0;
+    }
+
+    .h2-section.collapsed {
+        grid-template-rows: 0fr;
+        opacity: 0;
     }
 
 /* #endregion */
