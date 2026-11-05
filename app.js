@@ -28,6 +28,7 @@ function renderNavigation(items) {
 
     items.forEach((category, index) => {
 
+        
         const section = document.createElement("div");
 
         section.className = "mb-2";
@@ -76,13 +77,13 @@ function renderNavigation(items) {
             section.querySelector(`#documents-${index}`);
 
         category.documents.forEach(doc => {
-
+            doc.category = category.category;
             const button = document.createElement("button");
 
 
             button.className = "btn btn-sm w-100 text-start text-secondary document-link";
             button.dataset.file = doc.file;
-
+            button.dataset.category = category.category;
             button.innerHTML = `
                 <i class="bi bi-file-earmark-text me-2"></i>
                 ${doc.title}
@@ -124,6 +125,7 @@ async function loadDocument(doc) {
 
         setActiveDocument(doc);
         title.textContent = doc.title;
+        updateBreadcrumb(doc);
         content.innerHTML = html;
         applyContentHierarchy();
         initializeH2Collapse();
@@ -696,6 +698,50 @@ search.addEventListener("input", () => {
         }
 
     });
+
+    
+
+/* #endregion */
+
+
+/* #region updateBreadcrumb */
+
+    function updateBreadcrumb(doc) {
+
+        const breadcrumb = document.getElementById("breadcrumb");
+
+        if (!breadcrumb) {
+            return;
+        }
+
+        breadcrumb.innerHTML = "";
+
+        const home = document.createElement("span");
+        home.className = "breadcrumb-item";
+        home.textContent = "Home";
+
+        const separator1 = document.createElement("span");
+        separator1.className = "breadcrumb-separator";
+        separator1.textContent = "/";
+
+        const category = document.createElement("span");
+        category.className = "breadcrumb-item";
+        category.textContent = doc.category;
+
+        const separator2 = document.createElement("span");
+        separator2.className = "breadcrumb-separator";
+        separator2.textContent = "/";
+
+        const documentItem = document.createElement("span");
+        documentItem.className = "breadcrumb-item current";
+        documentItem.textContent = doc.title;
+
+        breadcrumb.appendChild(home);
+        breadcrumb.appendChild(separator1);
+        breadcrumb.appendChild(category);
+        breadcrumb.appendChild(separator2);
+        breadcrumb.appendChild(documentItem);
+    }
 
     
 
