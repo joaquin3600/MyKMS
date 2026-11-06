@@ -14,7 +14,8 @@
         "documents": [
             {
                 "title": "Blazor",
-                "file": "Documents/Programming/Blazor.html"
+                "file": "Documents/Programming/Blazor.html",
+                "checklist": true
             }
         ]
     }

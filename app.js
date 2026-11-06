@@ -136,6 +136,7 @@ async function loadDocument(doc, sectionIndex = null) {
         initializeH2Collapse();
         highlightCodeBlocks();
         generateTableOfContents();
+        initializeChecklist(doc);
         updateReadingProgress();
         if (sectionIndex !== null && sectionIndex >= 0) {
 
@@ -465,6 +466,81 @@ function applyContentHierarchy() {
 
 
 /* #endregion */
+
+/* #region Checklist */
+
+function initializeChecklist(doc) {
+
+    if (!doc.checklist) {
+        return;
+    }
+
+    const headings = content.querySelectorAll(
+        "h2, h3, h4"
+    );
+
+    headings.forEach(heading => {
+
+        const checkbox = document.createElement("input");
+
+        checkbox.type = "checkbox";
+        checkbox.className = "checklist-checkbox";
+
+        const storageKey =
+            `mykms-checklist:${doc.file}:${heading.id}`;
+
+        checkbox.checked =
+            localStorage.getItem(storageKey) === "true";
+
+        checkbox.setAttribute(
+            "aria-label",
+            `Mark "${heading.textContent.trim()}" as complete`
+        );
+
+        checkbox.addEventListener("click", event => {
+            event.stopPropagation();
+        });
+
+        checkbox.addEventListener("change", () => {
+
+            localStorage.setItem(
+                storageKey,
+                checkbox.checked
+            );
+
+        });
+
+        heading.classList.add("checklist-heading");
+
+        heading.insertBefore(
+            checkbox,
+            heading.firstChild
+        );
+
+        const textNodes = Array.from(heading.childNodes)
+            .filter(node =>
+                node.nodeType === Node.TEXT_NODE &&
+                node.textContent.trim()
+            );
+
+        textNodes.forEach(node => {
+
+            const headingText = document.createElement("span");
+
+            headingText.className =
+                "checklist-heading-text";
+
+            headingText.textContent =
+                node.textContent.trim();
+
+            node.replaceWith(headingText);
+
+        });
+
+    });
+}
+
+/* #endregion Checklist */
 
 
 /* #region Back to Top */

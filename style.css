@@ -887,6 +887,34 @@
 
 /* #endregion */
 
+/* #region Checklist */
+
+.checklist-heading {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.checklist-checkbox {
+    flex-shrink: 0;
+    width: 16px;
+    height: 16px;
+    margin: 0;
+    accent-color: var(--accent);
+    cursor: pointer;
+}
+
+.checklist-heading-text {
+    flex: 1;
+}
+
+.checklist-heading .heading-chevron {
+    margin-left: auto;
+    flex-shrink: 0;
+}   
+
+/* #endregion Checklist */
+
 /* #region Breadcrumb */
 
     .breadcrumb-container {
