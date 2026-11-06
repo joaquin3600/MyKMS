@@ -15,14 +15,19 @@ const sidebarToggle = document.getElementById("sidebar-toggle");
 const main = document.querySelector("main");
 const exportPdfButton = document.getElementById("export-pdf");
 const collapseH2Toggle = document.getElementById("collapse-h2-toggle");tocSidebar.hidden   = true;
+const advancedSearchButton = document.getElementById("advanced-search-button");    
 
 fetch("./data.json")
     .then(response => response.json())
-    .then(data => {
+    .then(async data => {
         categories = data;
+
         renderNavigation(categories);
+
+        await buildSearchIndex();
     });
 
+    
 function renderNavigation(items) {
     navigation.innerHTML = "";
 
@@ -770,3 +775,238 @@ search.addEventListener("input", () => {
     });
 
 // #endregion Keyboard Shortcuts
+
+/* #region Advanced Search */
+
+let searchIndex = [];
+
+
+async function buildSearchIndex() {
+
+    searchIndex = [];
+
+    for (const category of categories) {
+
+        for (const doc of category.documents) {
+
+            try {
+
+                const response = await fetch(doc.file);
+
+                if (!response.ok) {
+                    continue;
+                }
+
+                const html = await response.text();
+
+                const temp = document.createElement("div");
+                temp.innerHTML = html;
+
+                searchIndex.push({
+                    title: doc.title,
+                    category: category.category,
+                    file: doc.file,
+                    text: temp.textContent
+                        .replace(/\s+/g, " ")
+                        .trim()
+                });
+
+            } catch (error) {
+
+                console.error(
+                    "Error indexing document:",
+                    doc.file,
+                    error
+                );
+
+            }
+
+        }
+
+    }
+
+}
+
+
+function showAdvancedSearch() {
+
+    title.textContent = "Advanced Search";
+
+    breadcrumb.innerHTML = "";
+
+    content.innerHTML = `
+        <div class="advanced-search-page">
+
+            <div class="advanced-search-header">
+
+                <h1>Advanced Search</h1>
+
+                <p>
+                    Search across your entire knowledge base.
+                </p>
+
+            </div>
+
+            <div class="advanced-search-input">
+
+                <i class="bi bi-search"></i>
+
+                <input
+                    id="advanced-search"
+                    type="search"
+                    placeholder="Search topics, concepts, code..."
+                    autocomplete="off"
+                >
+
+            </div>
+
+            <div id="search-results"></div>
+
+        </div>
+    `;
+
+    tocSidebar.hidden = true;
+
+    const input =
+        document.getElementById("advanced-search");
+
+    input.addEventListener(
+        "input",
+        () => performAdvancedSearch(input.value)
+    );
+
+    input.focus();
+
+}
+
+
+function performAdvancedSearch(query) {
+
+    const resultsContainer =
+        document.getElementById("search-results");
+
+    if (!resultsContainer) {
+        return;
+    }
+
+    const normalizedQuery =
+        query.trim().toLowerCase();
+
+    if (!normalizedQuery) {
+
+        resultsContainer.innerHTML = "";
+
+        return;
+
+    }
+
+    const results = searchIndex.filter(doc =>
+        doc.text.toLowerCase().includes(normalizedQuery)
+    );
+
+    if (!results.length) {
+
+        resultsContainer.innerHTML = `
+            <div class="search-empty-state">
+                <i class="bi bi-search"></i>
+
+                <p>
+                    No results found.
+                </p>
+            </div>
+        `;
+
+        return;
+
+    }
+
+    resultsContainer.innerHTML = `
+        <div class="search-result-count">
+            ${results.length}
+            ${results.length === 1 ? "result" : "results"}
+        </div>
+
+        ${results.map(doc => createSearchResult(doc, normalizedQuery)).join("")}
+    `;
+
+}
+
+
+function createSearchResult(doc, query) {
+
+    const index =
+        doc.text.toLowerCase().indexOf(query);
+
+    const start =
+        Math.max(0, index - 120);
+
+    const end =
+        Math.min(
+            doc.text.length,
+            index + query.length + 180
+        );
+
+    let snippet =
+        doc.text.substring(start, end);
+
+    if (start > 0) {
+        snippet = "..." + snippet;
+    }
+
+    if (end < doc.text.length) {
+        snippet += "...";
+    }
+
+    const highlightedSnippet =
+        highlightSearchTerm(snippet, query);
+
+    return `
+        <article class="search-result">
+
+            <div class="search-result-header">
+
+                <div>
+
+                    <h3>
+                        ${doc.title}
+                    </h3>
+
+                    <span class="search-result-category">
+                        ${doc.category}
+                    </span>
+
+                </div>
+
+            </div>
+
+            <p class="search-result-snippet">
+                ${highlightedSnippet}
+            </p>
+
+            <button
+                class="search-result-open"
+                type="button"
+                data-file="${doc.file}">
+                Open Document
+            </button>
+
+        </article>
+    `;
+
+}
+
+
+function highlightSearchTerm(text, query) {
+
+    const escapedQuery =
+        query.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+
+    return text.replace(
+        new RegExp(`(${escapedQuery})`, "gi"),
+        "<mark>$1</mark>"
+    );
+
+}
+
+
+/* #endregion Advanced Search */

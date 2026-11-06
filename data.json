@@ -15,19 +15,6 @@
             {
                 "title": "Blazor",
                 "file": "Documents/Programming/Blazor.html"
-            },
-            {
-                "title": "CSharp",
-                "file": "Documents/Programming/CSharp.md"
-            }
-        ]
-    },
-    {
-        "category": "Unreal",
-        "documents": [
-            {
-                "title": "Introduction",
-                "file": "Documents/Unreal/Introduction.md"
             }
         ]
     }

@@ -931,3 +931,110 @@
     }
 
 /* #endregion Collapse H2 Button */
+
+
+/* #region Advanced Search */
+
+    .advanced-search {
+        margin-top: 30px;
+        max-width: 800px;
+    }
+
+    .advanced-search-input {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+
+        padding: 14px 18px;
+
+        background: var(--sidebar-bg);
+        border: 1px solid var(--border-color);
+        border-radius: 10px;
+    }
+
+    .advanced-search-input i {
+        color: var(--text-secondary);
+        font-size: 18px;
+    }
+
+    .advanced-search-input input {
+        width: 100%;
+
+        border: none;
+        outline: none;
+
+        background: transparent;
+        color: var(--text-primary);
+
+        font-family: inherit;
+        font-size: 16px;
+    }
+
+    .advanced-search-input input::placeholder {
+        color: var(--text-secondary);
+    }
+
+/* #endregion Advanced Search */
+
+
+/* #region Advanced Search */
+
+    .advanced-search-page {
+        max-width: 900px;
+    }
+
+    .advanced-search-header {
+        margin-bottom: 32px;
+    }
+
+    .advanced-search-header h1 {
+        margin-bottom: 8px;
+    }
+
+    .advanced-search-header p {
+        color: var(--text-secondary);
+        margin-bottom: 0;
+    }
+
+    .advanced-search-input {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+
+        max-width: 800px;
+
+        padding: 14px 18px;
+
+        background: var(--sidebar-bg);
+        border: 1px solid var(--border-color);
+        border-radius: 10px;
+    }
+
+    .advanced-search-input i {
+        color: var(--text-secondary);
+        font-size: 18px;
+        flex-shrink: 0;
+    }
+
+    .advanced-search-input input {
+        width: 100%;
+
+        border: none;
+        outline: none;
+
+        background: transparent;
+        color: var(--text-primary);
+
+        font-family: inherit;
+        font-size: 16px;
+    }
+
+    .advanced-search-input input::placeholder {
+        color: var(--text-secondary);
+    }
+
+    #search-results {
+        margin-top: 32px;
+    }
+
+/* #endregion Advanced Search */
