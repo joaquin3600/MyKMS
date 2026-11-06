@@ -118,7 +118,7 @@ function setActiveDocument(doc) {
     });
 }
 
-async function loadDocument(doc) {
+async function loadDocument(doc, sectionIndex = null) {
     try {
         const response = await fetch(doc.file);
 
@@ -137,6 +137,28 @@ async function loadDocument(doc) {
         highlightCodeBlocks();
         generateTableOfContents();
         updateReadingProgress();
+        if (sectionIndex !== null && sectionIndex >= 0) {
+
+            const headings =
+                content.querySelectorAll("h2");
+
+            const targetHeading =
+                headings[sectionIndex];
+
+            if (targetHeading) {
+
+                setTimeout(() => {
+
+                    targetHeading.scrollIntoView({
+                        behavior: "smooth",
+                        block: "start"
+                    });
+
+                }, 100);
+
+            }
+
+        }
 
     } catch (error) {
         content.textContent = "Error loading document: " + error.message;
@@ -829,13 +851,46 @@ async function buildSearchIndex() {
                 const temp = document.createElement("div");
                 temp.innerHTML = html;
 
+                const sections = [];
+
+                const headings = Array.from(
+                    temp.querySelectorAll("h2")
+                );
+
+                headings.forEach((heading, index) => {
+
+                    let sectionText = heading.textContent;
+
+                    let nextElement = heading.nextElementSibling;
+
+                    while (
+                        nextElement &&
+                        !nextElement.matches("h2")
+                    ) {
+                        sectionText += " " + nextElement.textContent;
+                        nextElement = nextElement.nextElementSibling;
+                    }
+
+                    sections.push({
+                        index,
+                        heading: heading.textContent.trim(),
+                        text: sectionText
+                            .replace(/\s+/g, " ")
+                            .trim()
+                    });
+
+                });
+
                 searchIndex.push({
                     title: doc.title,
                     category: category.category,
                     file: doc.file,
+
                     text: temp.textContent
                         .replace(/\s+/g, " ")
-                        .trim()
+                        .trim(),
+
+                    sections
                 });
 
             } catch (error) {
@@ -925,9 +980,22 @@ function performAdvancedSearch(query) {
 
     }
 
-    const results = searchIndex.filter(doc =>
-        doc.text.toLowerCase().includes(normalizedQuery)
-    );
+    const results = searchIndex
+        .map(doc => {
+
+            const sectionIndex = doc.sections.findIndex(section =>
+                section.text.toLowerCase().includes(normalizedQuery)
+            );
+
+            return {
+                ...doc,
+                sectionIndex
+            };
+
+        })
+        .filter(doc =>
+            doc.text.toLowerCase().includes(normalizedQuery)
+        );
 
     if (!results.length) {
 
@@ -1012,7 +1080,8 @@ function createSearchResult(doc, query) {
             <button
                 class="search-result-open"
                 type="button"
-                data-file="${doc.file}">
+                data-file="${doc.file}"
+                data-section-index="${doc.sectionIndex}">
                 <i class="bi bi-arrow-right"></i>
                 Open Document
             </button>
@@ -1068,7 +1137,10 @@ function highlightSearchTerm(text, query) {
             return;
         }
 
-        loadDocument(doc);
+        const sectionIndex =
+            Number(button.dataset.sectionIndex);
+
+        loadDocument(doc, sectionIndex);
 
     });
 
