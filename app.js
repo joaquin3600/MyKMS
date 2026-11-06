@@ -16,7 +16,7 @@ const main = document.querySelector("main");
 const exportPdfButton = document.getElementById("export-pdf");
 const focusModeToggle = document.getElementById("focus-mode-toggle");
 const focusModeIcon = document.getElementById("focus-mode-icon");
-tocSidebar.hidden   = true;
+const collapseH2Toggle = document.getElementById("collapse-h2-toggle");tocSidebar.hidden   = true;
 
 fetch("./data.json")
     .then(response => response.json())
@@ -242,39 +242,35 @@ function applyContentHierarchy() {
         );
     }
 
-    document.addEventListener("keydown", event => {
 
-        if (
-            event.ctrlKey &&
-            event.key.toLowerCase() === "m"
-        ) {
+    function collapseAllH2() {
 
-            event.preventDefault();
+        const headings = content.querySelectorAll(
+            "h2.collapsible-heading"
+        );
 
-            const headings = content.querySelectorAll(
-                "h2.collapsible-heading"
-            );
+        headings.forEach(heading => {
 
-            headings.forEach(heading => {
+            const section = heading.nextElementSibling;
+            const chevron =
+                heading.querySelector(".heading-chevron");
 
-                const section = heading.nextElementSibling;
-                const chevron =
-                    heading.querySelector(".heading-chevron");
+            if (!section || !chevron) {
+                return;
+            }
 
-                if (!section || !chevron) {
-                    return;
-                }
+            heading.classList.add("collapsed");
+            section.classList.add("collapsed");
 
-                heading.classList.add("collapsed");
-                section.classList.add("collapsed");
+            chevron.classList.remove("bi-chevron-down");
+            chevron.classList.add("bi-chevron-right");
+        });
+    }
 
-                chevron.classList.remove("bi-chevron-down");
-                chevron.classList.add("bi-chevron-right");
-            });
-
-        }
-
-    });
+    collapseH2Toggle.addEventListener(
+        "click",
+        collapseAllH2
+    );
 
 /* #endregion */
 
@@ -647,7 +643,7 @@ search.addEventListener("input", () => {
 
 /* #region Export PDF */
 
-    exportPdfButton.addEventListener("click", () => {
+    function exportPdf() {
 
         if (!content.innerHTML.trim()) {
             return;
@@ -655,7 +651,12 @@ search.addEventListener("input", () => {
 
         window.print();
 
-    });
+    }
+
+    exportPdfButton.addEventListener(
+        "click",
+        exportPdf
+    );
 
 /* #endregion */
 
@@ -782,8 +783,8 @@ search.addEventListener("input", () => {
         focusModeToggle.setAttribute(
             "title",
             isActive
-                ? "Exit Focus Mode"
-                : "Focus Mode"
+                ? "Exit Focus Mode (Ctrl + Shift + F)"
+                : "Focus Mode (Ctrl + Shift + F)"
         );
 
         focusModeIcon.classList.toggle(
@@ -803,15 +804,59 @@ search.addEventListener("input", () => {
         toggleFocusMode
     );
 
+
+// #endregion Focus Mode
+
+// #region Keyboard Shortcuts
+
     document.addEventListener("keydown", event => {
 
+        const key = event.key.toLowerCase();
+
+        // Ctrl + Shift + F → Focus Mode
         if (
-            event.key === "Escape" &&
-            document.body.classList.contains("focus-mode")
+            event.ctrlKey &&
+            event.shiftKey &&
+            key === "f"
         ) {
+            event.preventDefault();
             toggleFocusMode();
+            return;
+        }
+
+        // Ctrl + M → Collapse All H2
+        if (
+            event.ctrlKey &&
+            !event.shiftKey &&
+            key === "m"
+        ) {
+            event.preventDefault();
+            collapseAllH2();
+            return;
+        }
+
+        // Ctrl + Shift + D → Toggle Theme
+        if (
+            event.ctrlKey &&
+            event.shiftKey &&
+            key === "d"
+        ) {
+            event.preventDefault();
+            toggleTheme();
+            return;
+        }
+
+        // Ctrl + Shift + E → Export PDF
+        if (
+            event.ctrlKey &&
+            event.shiftKey &&
+            key === "e"
+        ) {
+            event.preventDefault();
+            exportPdf();
+            return;
         }
 
     });
 
-// #endregion Focus Mode
+// #endregion Keyboard Shortcuts

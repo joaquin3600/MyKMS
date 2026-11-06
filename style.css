@@ -931,3 +931,20 @@
     }
 
 /* #endregion Focus Mode */
+
+/* #region Collapse H2 Button */
+
+    .collapse-h2-toggle {
+        border: none;
+        background: transparent;
+        color: var(--text-secondary);
+        padding: 6px 10px;
+        border-radius: 6px;
+    }
+
+    .collapse-h2-toggle:hover {
+        background: var(--hover-bg);
+        color: var(--text-primary);
+    }
+
+/* #endregion Collapse H2 Button */
