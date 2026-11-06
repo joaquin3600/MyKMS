@@ -1,6 +1,9 @@
 
 let categories = [];
+const shortcutsButton = document.getElementById("shortcuts-button");
+const shortcutsModalElement = document.getElementById("shortcuts-modal");
 
+const shortcutsModal = new bootstrap.Modal(shortcutsModalElement);
 const breadcrumb    = document.getElementById("breadcrumb");
 const backToTop     = document.getElementById("back-to-top");
 const navigation    = document.getElementById("navigation");
@@ -26,8 +29,9 @@ fetch("./data.json")
         renderNavigation(categories);
 
         await buildSearchIndex();
-    });
 
+        showAdvancedSearch();
+    });
 
 function renderNavigation(items) {
     navigation.innerHTML = "";
@@ -751,6 +755,17 @@ search.addEventListener("input", () => {
             return;
         }
 
+        // Ctrl + Shift + A → Advanced Search
+        if (
+            event.ctrlKey &&
+            event.shiftKey &&
+            key === "a"
+        ) {
+            event.preventDefault();
+            showAdvancedSearch();
+            return;
+        }
+
         // Ctrl + Shift + D → Toggle Theme
         if (
             event.ctrlKey &&
@@ -770,6 +785,17 @@ search.addEventListener("input", () => {
         ) {
             event.preventDefault();
             exportPdf();
+            return;
+        }
+
+        // Ctrl + Shift + K → Keyboard Shortcuts
+        if (
+            event.ctrlKey &&
+            event.shiftKey &&
+            key === "k"
+        ) {
+            event.preventDefault();
+            shortcutsModal.show();
             return;
         }
 
@@ -840,8 +866,6 @@ function showAdvancedSearch() {
 
             <div class="advanced-search-header">
 
-                <h1>Advanced Search</h1>
-
                 <p>
                     Search across your entire knowledge base.
                 </p>
@@ -866,10 +890,6 @@ function showAdvancedSearch() {
         </div>
     `;
 
-    advancedSearchButton.addEventListener(
-        "click",
-        showAdvancedSearch
-    );
 
     tocSidebar.hidden = true;
 
@@ -884,7 +904,6 @@ function showAdvancedSearch() {
     input.focus();
 
 }
-
 
 function performAdvancedSearch(query) {
 
@@ -937,7 +956,6 @@ function performAdvancedSearch(query) {
 
 }
 
-
 function createSearchResult(doc, query) {
 
     const index =
@@ -963,8 +981,10 @@ function createSearchResult(doc, query) {
         snippet += "...";
     }
 
+    const safeSnippet = escapeHtml(snippet);
+
     const highlightedSnippet =
-        highlightSearchTerm(snippet, query);
+        highlightSearchTerm(safeSnippet, query);
 
     return `
         <article class="search-result">
@@ -993,12 +1013,22 @@ function createSearchResult(doc, query) {
                 class="search-result-open"
                 type="button"
                 data-file="${doc.file}">
+                <i class="bi bi-arrow-right"></i>
                 Open Document
             </button>
 
         </article>
     `;
 
+}
+
+function escapeHtml(text) {
+
+    const div = document.createElement("div");
+
+    div.textContent = text;
+
+    return div.innerHTML;
 }
 
 
@@ -1015,4 +1045,39 @@ function highlightSearchTerm(text, query) {
 }
 
 
+    advancedSearchButton.addEventListener(
+        "click",
+        showAdvancedSearch
+    );
+
+    document.addEventListener("click", event => {
+
+        const button = event.target.closest(".search-result-open");
+
+        if (!button) {
+            return;
+        }
+
+        const file = button.dataset.file;
+
+        const doc = categories
+            .flatMap(category => category.documents)
+            .find(document => document.file === file);
+
+        if (!doc) {
+            return;
+        }
+
+        loadDocument(doc);
+
+    });
+
+
 /* #endregion Advanced Search */
+
+
+shortcutsButton.addEventListener("click", () => {
+    shortcutsModal.show();
+});
+
+

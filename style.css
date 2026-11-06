@@ -385,9 +385,9 @@
 
     .toc-sidebar {
         position: sticky;
-        top: 32px;
+        top: 80px;
         align-self: flex-start;
-        max-height: calc(100vh - 64px);
+        max-height: calc(100vh - 96px);
         overflow-y: auto;
         padding-left: 24px;
         border-left: 1px solid var(--border-color);
@@ -1038,3 +1038,184 @@
     }
 
 /* #endregion Advanced Search */
+
+/* #region Advanced Search Results */
+
+.search-result {
+    padding: 24px 0;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.search-result:first-of-type {
+    padding-top: 0;
+}
+
+.search-result-header h3 {
+    margin: 0 0 6px;
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+.search-result-category {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+}
+
+.search-result-snippet {
+    margin: 16px 0;
+    color: var(--text-secondary);
+    line-height: 1.7;
+}
+
+.search-result-snippet mark {
+    padding: 2px 4px;
+    border-radius: 4px;
+    background: var(--accent);
+    color: #fff;
+}
+
+.search-result-open {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+
+    padding: 7px 12px;
+
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+
+    background: transparent;
+    color: var(--text-primary);
+
+    font-family: inherit;
+    font-size: 0.85rem;
+
+    cursor: pointer;
+
+    transition:
+        background-color 180ms ease,
+        border-color 180ms ease,
+        color 180ms ease;
+}
+
+.search-result-open:hover {
+    background: var(--sidebar-bg);
+    border-color: var(--accent);
+    color: var(--accent);
+}
+
+/* #endregion Advanced Search Results */
+
+/* #region Keyboard Shortcuts */
+
+.shortcut-list {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.shortcut-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.shortcut-item span {
+    flex: 1;
+    color: var(--text-primary);
+}
+
+.shortcut-item kbd {
+    min-width: 32px;
+    padding: 4px 8px;
+
+    border: 1px solid var(--border-color);
+    border-radius: 5px;
+
+    background: var(--sidebar-bg);
+    color: var(--text-primary);
+
+    font-family: inherit;
+    font-size: 0.8rem;
+    text-align: center;
+}
+
+/* Light Mode */
+
+    #shortcuts-modal .modal-content {
+        background: var(--bg-color);
+        color: var(--text-primary);
+        border: 1px solid var(--border-color);
+    }
+
+    #shortcuts-modal .modal-header {
+        border-bottom: 1px solid var(--border-color);
+    }
+
+    #shortcuts-modal .modal-title {
+        color: var(--text-primary);
+    }
+
+    #shortcuts-modal .btn-close {
+        filter: none;
+    }
+
+    /* Dark Mode */
+
+    [data-theme="dark"] #shortcuts-modal .modal-content {
+        background: var(--bg-color);
+        color: var(--text-primary);
+        border-color: var(--border-color);
+    }
+
+    [data-theme="dark"] #shortcuts-modal .modal-header {
+        border-bottom-color: var(--border-color);
+    }
+
+    [data-theme="dark"] #shortcuts-modal .btn-close {
+        filter: invert(1) grayscale(100%) brightness(200%);
+    }
+
+/* #endregion Keyboard Shortcuts */
+
+
+/* #region Header Action Buttons */
+
+.header-action-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    min-width: 36px;
+    height: 36px;
+
+    padding: 0 10px;
+
+    border: 1px solid var(--border-color) !important;
+    border-radius: 6px;
+
+    background: transparent !important;
+    color: var(--text-primary) !important;
+
+    transition:
+        background-color 180ms ease,
+        border-color 180ms ease,
+        color 180ms ease;
+}
+
+.header-action-button:hover {
+    background: var(--sidebar-bg) !important;
+    border-color: var(--accent) !important;
+    color: var(--accent) !important;
+}
+
+.header-action-button:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 3px var(--accent-alpha);
+}
+
+.header-action-button i {
+    font-size: 1rem;
+}
+
+/* #endregion Header Action Buttons */
