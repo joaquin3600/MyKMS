@@ -539,6 +539,14 @@
         transition: margin-left 300ms ease;
     }
 
+    /* #region Collapsible Sidebar */
+
+    .sidebar-content {
+        padding-top: 80px !important;
+    }
+
+    /* #endregion Collapsible Sidebar */
+
     .sidebar-content {
         width: 100%;
         height: 100vh;
@@ -906,43 +914,6 @@
 
 /* #endregion */
 
-
-/* #region Focus Mode */
-
-    body.focus-mode .toc-sidebar {
-        visibility: hidden;
-        opacity: 0;
-        pointer-events: none;
-    }
-
-    body.focus-mode main > .row > .col-lg-9 {
-        width: 100%;
-        max-width: 100%;
-        flex: 0 0 100%;
-    }
-
-    body.focus-mode .content-container {
-        max-width: 950px;
-    }
-
-    .focus-mode-toggle {
-        border: none;
-        background: transparent;
-        color: var(--text-secondary);
-        padding: 6px 10px;
-        border-radius: 6px;
-    }
-
-    .focus-mode-toggle:hover {
-        background: var(--hover-bg);
-        color: var(--text-primary);
-    }
-
-    body.focus-mode .focus-mode-toggle {
-        color: var(--accent);
-    }
-
-/* #endregion Focus Mode */
 
 /* #region Collapse H2 Button */
 

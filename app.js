@@ -14,8 +14,6 @@ const sidebar = document.querySelector(".sidebar-column");
 const sidebarToggle = document.getElementById("sidebar-toggle");
 const main = document.querySelector("main");
 const exportPdfButton = document.getElementById("export-pdf");
-const focusModeToggle = document.getElementById("focus-mode-toggle");
-const focusModeIcon = document.getElementById("focus-mode-icon");
 const collapseH2Toggle = document.getElementById("collapse-h2-toggle");tocSidebar.hidden   = true;
 
 fetch("./data.json")
@@ -730,79 +728,11 @@ search.addEventListener("input", () => {
 
 /* #endregion */
 
-// #region Focus Mode
-
-    function toggleFocusMode() {
-
-        const isActive =
-            document.body.classList.toggle("focus-mode");
-
-
-        sidebar.classList.toggle(
-            "sidebar-hidden",
-            isActive
-        );
-
-        main.classList.toggle(
-            "main-expanded",
-            isActive
-        );
-
-        focusModeToggle.setAttribute(
-            "aria-pressed",
-            isActive
-        );
-
-        focusModeToggle.setAttribute(
-            "aria-label",
-            isActive
-                ? "Exit Focus Mode"
-                : "Enter Focus Mode"
-        );
-
-        focusModeToggle.setAttribute(
-            "title",
-            isActive
-                ? "Exit Focus Mode (Ctrl + Shift + F)"
-                : "Focus Mode (Ctrl + Shift + F)"
-        );
-
-        focusModeIcon.classList.toggle(
-            "bi-arrows-angle-expand",
-            !isActive
-        );
-
-        focusModeIcon.classList.toggle(
-            "bi-arrows-angle-contract",
-            isActive
-        );
-
-    }
-
-    focusModeToggle.addEventListener(
-        "click",
-        toggleFocusMode
-    );
-
-
-// #endregion Focus Mode
-
 // #region Keyboard Shortcuts
 
     document.addEventListener("keydown", event => {
 
         const key = event.key.toLowerCase();
-
-        // Ctrl + Shift + F → Focus Mode
-        if (
-            event.ctrlKey &&
-            event.shiftKey &&
-            key === "f"
-        ) {
-            event.preventDefault();
-            toggleFocusMode();
-            return;
-        }
 
         // Ctrl + M → Collapse All H2
         if (
