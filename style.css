@@ -256,6 +256,12 @@
         color: var(--text-secondary);
         flex-shrink: 0;
         margin-left: auto;
+
+        transition: transform 180ms ease;
+    }
+
+    .category-toggle[aria-expanded="false"] .category-chevron {
+        transform: rotate(-90deg);
     }
 
     /* Active document */
@@ -843,6 +849,12 @@
         font-size: 0.8em;
         color: var(--accent);
         flex-shrink: 0;
+
+        transition: transform 180ms ease;
+    }
+
+    .collapsible-heading.collapsed .heading-chevron {
+        transform: rotate(-90deg);
     }
 
     /* H2 section animation */

@@ -62,18 +62,13 @@ function renderNavigation(items) {
         const categoryButton = section.querySelector(".category-toggle");
         const chevron = section.querySelector(".category-chevron");
 
-        // Update chevron when category expands
         collapseElement.addEventListener("show.bs.collapse", () => {
-            chevron.classList.replace("bi-chevron-right", "bi-chevron-down");
             categoryButton.setAttribute("aria-expanded", "true");
         });
 
-        // Update chevron when category collapses
         collapseElement.addEventListener("hide.bs.collapse", () => {
-            chevron.classList.replace("bi-chevron-down", "bi-chevron-right");
             categoryButton.setAttribute("aria-expanded", "false");
         });
-
 
         const documentContainer =
             section.querySelector(`#documents-${index}`);
@@ -220,7 +215,6 @@ function applyContentHierarchy() {
         });
     }
 
-
     function toggleH2Section(heading, section, chevron) {
 
         const isCollapsed =
@@ -228,16 +222,6 @@ function applyContentHierarchy() {
 
         section.classList.toggle(
             "collapsed",
-            isCollapsed
-        );
-
-        chevron.classList.toggle(
-            "bi-chevron-down",
-            !isCollapsed
-        );
-
-        chevron.classList.toggle(
-            "bi-chevron-right",
             isCollapsed
         );
     }
@@ -252,18 +236,14 @@ function applyContentHierarchy() {
         headings.forEach(heading => {
 
             const section = heading.nextElementSibling;
-            const chevron =
-                heading.querySelector(".heading-chevron");
 
-            if (!section || !chevron) {
+            if (!section) {
                 return;
             }
 
             heading.classList.add("collapsed");
             section.classList.add("collapsed");
 
-            chevron.classList.remove("bi-chevron-down");
-            chevron.classList.add("bi-chevron-right");
         });
     }
 
