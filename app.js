@@ -1,6 +1,7 @@
 
 let categories = [];
 
+const breadcrumb    = document.getElementById("breadcrumb");
 const backToTop     = document.getElementById("back-to-top");
 const navigation    = document.getElementById("navigation");
 const title         = document.getElementById("title");
@@ -27,7 +28,7 @@ fetch("./data.json")
         await buildSearchIndex();
     });
 
-    
+
 function renderNavigation(items) {
     navigation.innerHTML = "";
 
@@ -864,6 +865,11 @@ function showAdvancedSearch() {
 
         </div>
     `;
+
+    advancedSearchButton.addEventListener(
+        "click",
+        showAdvancedSearch
+    );
 
     tocSidebar.hidden = true;
 
