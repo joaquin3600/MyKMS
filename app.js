@@ -134,6 +134,7 @@ async function loadDocument(doc, sectionIndex = null) {
         updateBreadcrumb(doc);
         content.innerHTML = html;
         applyContentHierarchy();
+        initializeHeadingNumbers();
         initializeH2Collapse();
         highlightCodeBlocks();
         generateTableOfContents();
@@ -350,6 +351,42 @@ function applyContentHierarchy() {
 
 /* #endregion */
 
+/* #region Heading Numbers */
+
+function initializeHeadingNumbers() {
+
+    const headings = content.querySelectorAll(
+        "h1, h2, h3, h4"
+    );
+
+    const counters = [0, 0, 0, 0];
+
+    headings.forEach(heading => {
+
+        const level =
+            Number(heading.tagName.substring(1));
+
+        const index = level - 1;
+
+        counters[index]++;
+
+        // Reset lower levels
+        for (let i = index + 1; i < counters.length; i++) {
+            counters[i] = 0;
+        }
+
+        const numbers = counters
+            .slice(0, index + 1)
+            .join(".");
+
+        heading.classList.add("numbered-heading");
+
+        heading.dataset.headingNumber = `${numbers})`;
+    });
+}
+
+/* #endregion Heading Numbers */
+
 
 
 /* #region Table of Contents */
@@ -559,6 +596,17 @@ function initializeChecklist(doc) {
         heading.insertBefore(
             checkbox,
             heading.firstChild
+        );
+
+        const number = document.createElement("span");
+
+        number.className = "heading-number";
+        number.textContent =
+            heading.dataset.headingNumber || "";
+
+        heading.insertBefore(
+            number,
+            heading.firstChild.nextSibling
         );
 
         const textNodes = Array.from(heading.childNodes)
@@ -1077,7 +1125,7 @@ function showAdvancedSearch() {
         </div>
     `;
 
-    tocSidebar.hidden = true;
+        tocSidebar.hidden = true;
 
     const input =
         document.getElementById("advanced-search");

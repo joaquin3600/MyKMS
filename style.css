@@ -912,30 +912,27 @@
 
     .checklist-checkbox {
         order: 1;
-
         flex-shrink: 0;
-
-        width: 16px;
-        height: 16px;
-
+        width: 20px;
+        height: 20px;
         margin: 0;
-
         accent-color: var(--accent);
-
         cursor: pointer;
     }
 
-    .checklist-heading-text {
+    .checklist-heading .heading-number {
         order: 2;
+        flex-shrink: 0;
+    }
 
+    .checklist-heading-text {
+        order: 3;
         flex: 1;
     }
 
     .checklist-heading .heading-chevron {
-        order: 3;
-
+        order: 4;
         margin-left: auto;
-
         flex-shrink: 0;
     }
 
@@ -978,7 +975,6 @@
 
 /* #endregion */
 
-
 /* #region Collapse H2 Button */
 
     .collapse-h2-toggle {
@@ -995,7 +991,6 @@
     }
 
 /* #endregion Collapse H2 Button */
-
 
 /* #region Advanced Search */
 
@@ -1039,7 +1034,6 @@
     }
 
 /* #endregion Advanced Search */
-
 
 /* #region Advanced Search */
 
@@ -1242,44 +1236,54 @@
 
 /* #endregion Keyboard Shortcuts */
 
-
 /* #region Header Action Buttons */
 
-.header-action-button {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
+    .header-action-button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
 
-    min-width: 36px;
-    height: 36px;
+        min-width: 36px;
+        height: 36px;
 
-    padding: 0 10px;
+        padding: 0 10px;
 
-    border: 1px solid var(--border-color) !important;
-    border-radius: 6px;
+        border: 1px solid var(--border-color) !important;
+        border-radius: 6px;
 
-    background: transparent !important;
-    color: var(--text-primary) !important;
+        background: transparent !important;
+        color: var(--text-primary) !important;
 
-    transition:
-        background-color 180ms ease,
-        border-color 180ms ease,
-        color 180ms ease;
-}
+        transition:
+            background-color 180ms ease,
+            border-color 180ms ease,
+            color 180ms ease;
+    }
 
-.header-action-button:hover {
-    background: var(--sidebar-bg) !important;
-    border-color: var(--accent) !important;
-    color: var(--accent) !important;
-}
+    .header-action-button:hover {
+        background: var(--sidebar-bg) !important;
+        border-color: var(--accent) !important;
+        color: var(--accent) !important;
+    }
 
-.header-action-button:focus-visible {
-    outline: none;
-    box-shadow: 0 0 0 3px var(--accent-alpha);
-}
+    .header-action-button:focus-visible {
+        outline: none;
+        box-shadow: 0 0 0 3px var(--accent-alpha);
+    }
 
-.header-action-button i {
-    font-size: 1rem;
-}
+    .header-action-button i {
+        font-size: 1rem;
+    }
 
 /* #endregion Header Action Buttons */
+
+/* #region Heading Numbers */
+
+.heading-number {
+    color: var(--text-secondary);
+    font-weight: 500;
+    flex-shrink: 0;
+    margin-right: 4px;
+}
+
+/* #endregion Heading Numbers */
