@@ -1326,9 +1326,34 @@ function highlightSearchTerm(text, query) {
 
 /* #endregion Advanced Search */
 
+    shortcutsButton.addEventListener("click", () => {
+        shortcutsModal.show();
+    });
 
-shortcutsButton.addEventListener("click", () => {
-    shortcutsModal.show();
-});
+/* #region Image Modal */
 
+    const imageModalElement =
+        document.getElementById("image-modal");
 
+    const imageModalContent =
+        document.getElementById("image-modal-content");
+
+    imageModalElement.addEventListener(
+        "show.bs.modal",
+        event => {
+
+            const triggerImage =
+                event.relatedTarget;
+
+            const imageSource =
+                triggerImage.getAttribute("data-image");
+
+            const imageAlt =
+                triggerImage.getAttribute("alt");
+
+            imageModalContent.src = imageSource;
+            imageModalContent.alt = imageAlt;
+        }
+    );
+
+/* #endregion Image Modal */

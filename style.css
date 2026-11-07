@@ -361,6 +361,8 @@
     margin-left: 60px;
 }
 
+/* #endregion */
+
 /* #region Accessibility */
 
     @media (prefers-reduced-motion: reduce) {
@@ -1279,11 +1281,11 @@
 
 /* #region Heading Numbers */
 
-.heading-number {
-    color: var(--text-secondary);
-    font-weight: 500;
-    flex-shrink: 0;
-    margin-right: 4px;
-}
+    .heading-number {
+        color: var(--text-secondary);
+        font-weight: 500;
+        flex-shrink: 0;
+        margin-right: 4px;
+    }
 
 /* #endregion Heading Numbers */

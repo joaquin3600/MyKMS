@@ -7,25 +7,30 @@
 
     <title>MyKMS</title>
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
-          rel="stylesheet">
+    <link   href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+            rel="stylesheet">
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css"
-          rel="stylesheet">
+    <link   href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css"
+            rel="stylesheet">
 
     <!-- Highlight.js - Light theme -->
-    <link id="highlight-light"
-        rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.12.0/styles/github.min.css"
-        disabled>
+     
+    <link   id="highlight-light"
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.12.0/styles/github.min.css"
+            disabled>
 
     <!-- Highlight.js - Dark theme -->
-    <link id="highlight-dark"
-        rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.12.0/styles/github-dark.min.css">
+
+    <link   id="highlight-dark"
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.12.0/styles/github-dark.min.css">
+
 
     <!-- #region Theme initialization -->
+
     <script>
+
         (function () {
             try {
                 const savedTheme = localStorage.getItem("mykms-theme");
@@ -36,253 +41,307 @@
                 document.documentElement.dataset.theme = "light";
             }
         })();
+
     </script>
     <!-- #endregion Theme initialization -->
 
     <link rel="stylesheet" href="./style.css">
 </head>
 <body>
+
     <!-- #region Header -->
 
-    <header class="app-header">
+        <header class="app-header">
 
-        <div class="header-left">
+            <div class="header-left">
 
-            <button id="sidebar-toggle"
-                    class="sidebar-toggle"
-                    type="button"
-                    aria-label="Hide sidebar"
-                    aria-expanded="true"
-                    title="Toggle sidebar">
+                <button id="sidebar-toggle"
+                        class="sidebar-toggle"
+                        type="button"
+                        aria-label="Hide sidebar"
+                        aria-expanded="true"
+                        title="Toggle sidebar">
 
-                <i class="bi bi-list" aria-hidden="true"></i>
+                    <i class="bi bi-list" aria-hidden="true"></i>
 
-            </button>
+                </button>
 
-            <h5 class="app-title mb-0">
-                <i class="bi bi-journal-bookmark"></i>
-                MyKMS
-            </h5>
+                <h5 class="app-title mb-0">
+                    <i class="bi bi-journal-bookmark"></i>
+                    MyKMS
+                </h5>
 
-        </div>
+            </div>
 
-        <div class="header-right">
+            <div class="header-right">
 
-            <button
-                id="shortcuts-button"
-                class="btn btn-sm header-action-button"
-                type="button"
-                title="Keyboard Shortcuts (Ctrl + Shift + K)"
-                aria-label="Keyboard Shortcuts">
-                <i class="bi bi-question-lg"></i>
-            </button>
-
-            <button id="export-pdf"
+                <button
+                    id="shortcuts-button"
                     class="btn btn-sm header-action-button"
                     type="button"
-                    title="Export PDF (Ctrl + Shift + E )"
-                    aria-label="Export document as PDF">
+                    title="Keyboard Shortcuts (Ctrl + Shift + K)"
+                    aria-label="Keyboard Shortcuts">
+                    <i class="bi bi-question-lg"></i>
+                </button>
 
-                <i class="bi bi-file-earmark-pdf" aria-hidden="true"></i>
-                <span>Export PDF</span>
-            </button>
+                <button id="export-pdf"
+                        class="btn btn-sm header-action-button"
+                        type="button"
+                        title="Export PDF (Ctrl + Shift + E )"
+                        aria-label="Export document as PDF">
 
-            <button id="collapse-h2-toggle"
-                    class="btn btn-sm header-action-button"
-                    type="button"
-                    title="Collapse All (Ctrl + M)"
-                    aria-label="Collapse all sections">
-                <i class="bi bi-arrows-collapse"
-                aria-hidden="true"></i>
-            </button>
+                    <i class="bi bi-file-earmark-pdf" aria-hidden="true"></i>
+                    <span>Export PDF</span>
+                </button>
 
-            <button id="reset-checklist-button"
-                    class="btn btn-sm header-action-button"
-                    type="button"
-                    title="Reset Checklist (Ctrl + Shift + R)"
-                    aria-label="Reset checklist">
-                <i class="bi bi-check2-square"
-                aria-hidden="true"></i>
-            </button>
+                <button id="collapse-h2-toggle"
+                        class="btn btn-sm header-action-button"
+                        type="button"
+                        title="Collapse All (Ctrl + M)"
+                        aria-label="Collapse all sections">
+                    <i class="bi bi-arrows-collapse"
+                    aria-hidden="true"></i>
+                </button>
 
-            <button id="theme-toggle"
-                    class="btn btn-sm header-action-button"
-                    type="button"
-                    aria-label="Switch to dark mode (Ctrl + Shift + D )"
-                    aria-pressed="false"
-                    title="Change theme (Ctrl + Shift + D )">
+                <button id="reset-checklist-button"
+                        class="btn btn-sm header-action-button"
+                        type="button"
+                        title="Reset Checklist (Ctrl + Shift + R)"
+                        aria-label="Reset checklist">
+                    <i class="bi bi-check2-square"
+                    aria-hidden="true"></i>
+                </button>
 
-                <i id="theme-toggle-icon"
-                class="bi bi-moon-stars"
-                aria-hidden="true"></i>
+                <button id="theme-toggle"
+                        class="btn btn-sm header-action-button"
+                        type="button"
+                        aria-label="Switch to dark mode (Ctrl + Shift + D )"
+                        aria-pressed="false"
+                        title="Change theme (Ctrl + Shift + D )">
 
-            </button>
+                    <i id="theme-toggle-icon"
+                    class="bi bi-moon-stars"
+                    aria-hidden="true"></i>
 
-        </div>
+                </button>
 
-    </header>
+            </div>
+
+        </header>
 
     <!-- #endregion Header -->
+
     <!-- Reading progress bar -->
-    <div class="reading-progress"
-        role="progressbar"
-        aria-label="Reading progress"
-        aria-valuemin="0"
-        aria-valuemax="100"
-        aria-valuenow="0">
 
-        <div id="reading-progress-bar"
-            class="reading-progress-bar"></div>
+        <div class="reading-progress"
+            role="progressbar"
+            aria-label="Reading progress"
+            aria-valuemin="0"
+            aria-valuemax="100"
+            aria-valuenow="0">
 
-    </div>
+            <div id="reading-progress-bar"
+                class="reading-progress-bar"></div>
 
-    <div class="container-fluid">
-        <div class="row">
+        </div>
 
-            <aside class="sidebar-column col-md-3 col-lg-2">
+        <div class="container-fluid">
+            <div class="row">
 
-                <div class="sidebar-content p-3">
+                <aside class="sidebar-column col-md-3 col-lg-2">
 
-                    <div class="input-group mb-3">
+                    <div class="sidebar-content p-3">
 
-                        <input
-                            id="search"
-                            class="form-control form-control-sm"
-                            placeholder="Search..." />
+                        <div class="input-group mb-3">
+
+                            <input
+                                id="search"
+                                class="form-control form-control-sm"
+                                placeholder="Search..." />
+
+                            <button
+                                id="advanced-search-button"
+                                class="btn btn-outline-secondary"
+                                type="button"
+                                title="Advanced Search (Ctrl + shift + A)"
+                                aria-label="Open Advanced Search">
+
+                                <i class="bi bi-search"></i>
+
+                            </button>
+
+                        </div>
+
+                        <nav id="navigation"></nav>
+
+                    </div>
+
+                </aside>
+
+                <main class="col-md-9 col-lg-10 p-4 p-lg-5">
+
+                    <div class="row">
+
+                        <!-- Main document -->
+                        <div class="col-lg-9">
+
+                            <div class="content-container">
+
+                                    <nav id="breadcrumb"
+                                        class="breadcrumb-container"
+                                        aria-label="Breadcrumb">
+                                    </nav>
+
+                                <hr>
+
+                                <article id="content">
+                                    
+                                </article>
+                            </div>
+
+                        </div>
+
+                        <!-- Table of contents -->
+                        <aside id="table-of-contents"
+                            class="col-lg-3 toc-sidebar">
+
+                            <h6>ON THIS PAGE</h6>
+
+                            <nav id="toc-navigation"></nav>
+
+                        </aside>
+
+                    </div>
+
+                </main>
+
+
+            </div>
+        </div>
+
+    <!-- Keyboard Shortcuts Modal -->
+
+        <div
+            class="modal fade"
+            id="shortcuts-modal"
+            tabindex="-1"
+            aria-labelledby="shortcuts-modal-title"
+            aria-hidden="true">
+
+            <div class="modal-dialog modal-dialog-centered">
+
+                <div class="modal-content">
+
+                    <div class="modal-header">
+
+                        <h5
+                            class="modal-title"
+                            id="shortcuts-modal-title">
+                            Keyboard Shortcuts
+                        </h5>
 
                         <button
-                            id="advanced-search-button"
-                            class="btn btn-outline-secondary"
                             type="button"
-                            title="Advanced Search (Ctrl + shift + A)"
-                            aria-label="Open Advanced Search">
-
-                            <i class="bi bi-search"></i>
-
+                            class="btn-close"
+                            data-bs-dismiss="modal"
+                            aria-label="Close">
                         </button>
 
                     </div>
 
-                    <nav id="navigation"></nav>
+                    <div class="modal-body">
 
-                </div>
+                        <div class="shortcut-list">
 
-            </aside>
+                            <div class="shortcut-item">
+                                <span>Collapse All H2</span>
+                                <kbd>Ctrl</kbd>
+                                <kbd>M</kbd>
+                            </div>
 
-            <main class="col-md-9 col-lg-10 p-4 p-lg-5">
+                            <div class="shortcut-item">
+                                <span>Reset Checklist</span>
+                                <kbd>Ctrl</kbd>
+                                <kbd>Shift</kbd>
+                                <kbd>R</kbd>
+                            </div>
 
-                <div class="row">
+                            <div class="shortcut-item">
+                                <span>Advanced Search</span>
+                                <kbd>Ctrl</kbd>
+                                <kbd>Shift</kbd>
+                                <kbd>A</kbd>
+                            </div>
 
-                    <!-- Main document -->
-                    <div class="col-lg-9">
+                            <div class="shortcut-item">
+                                <span>Toggle Theme</span>
+                                <kbd>Ctrl</kbd>
+                                <kbd>Shift</kbd>
+                                <kbd>D</kbd>
+                            </div>
 
-                        <div class="content-container">
+                            <div class="shortcut-item">
+                                <span>Export PDF</span>
+                                <kbd>Ctrl</kbd>
+                                <kbd>Shift</kbd>
+                                <kbd>E</kbd>
+                            </div>
 
-                                <nav id="breadcrumb"
-                                    class="breadcrumb-container"
-                                    aria-label="Breadcrumb">
-                                </nav>
+                            <div class="shortcut-item">
+                                <span>Open Keyboard Shortcuts</span>
+                                <kbd>Ctrl</kbd>
+                                <kbd>Shift</kbd>
+                                <kbd>K</kbd>
+                            </div>
 
-                            <hr>
-
-                            <article id="content">
-                                
-                            </article>
                         </div>
 
                     </div>
 
-                    <!-- Table of contents -->
-                    <aside id="table-of-contents"
-                        class="col-lg-3 toc-sidebar">
-
-                        <h6>ON THIS PAGE</h6>
-
-                        <nav id="toc-navigation"></nav>
-
-                    </aside>
-
                 </div>
 
-            </main>
-
-
+            </div>
         </div>
-    </div>
 
-    <!-- Keyboard Shortcuts Modal -->
-    <div
-        class="modal fade"
-        id="shortcuts-modal"
-        tabindex="-1"
-        aria-labelledby="shortcuts-modal-title"
-        aria-hidden="true">
+    <!-- #region Image Modal -->
 
-        <div class="modal-dialog modal-dialog-centered">
+    <!-- Image Preview Modal -->
 
-            <div class="modal-content">
+        <div
+            class="modal fade"
+            id="image-modal"
+            tabindex="-1"
+            aria-labelledby="image-modal-title"
+            aria-hidden="true">
 
-                <div class="modal-header">
+            <div class="modal-dialog modal-dialog-centered modal-xl">
 
-                    <h5
-                        class="modal-title"
-                        id="shortcuts-modal-title">
-                        Keyboard Shortcuts
-                    </h5>
+                <div class="modal-content">
 
-                    <button
-                        type="button"
-                        class="btn-close"
-                        data-bs-dismiss="modal"
-                        aria-label="Close">
-                    </button>
+                    <div class="modal-header">
 
-                </div>
+                        <h5
+                            class="modal-title"
+                            id="image-modal-title">
+                            Image Preview
+                        </h5>
 
-                <div class="modal-body">
+                        <button
+                            type="button"
+                            class="btn-close"
+                            data-bs-dismiss="modal"
+                            aria-label="Close">
+                        </button>
 
-                    <div class="shortcut-list">
+                    </div>
 
-                        <div class="shortcut-item">
-                            <span>Collapse All H2</span>
-                            <kbd>Ctrl</kbd>
-                            <kbd>M</kbd>
-                        </div>
+                    <div class="modal-body text-center">
 
-                        <div class="shortcut-item">
-                            <span>Reset Checklist</span>
-                            <kbd>Ctrl</kbd>
-                            <kbd>Shift</kbd>
-                            <kbd>R</kbd>
-                        </div>
-
-                        <div class="shortcut-item">
-                            <span>Advanced Search</span>
-                            <kbd>Ctrl</kbd>
-                            <kbd>Shift</kbd>
-                            <kbd>A</kbd>
-                        </div>
-
-                        <div class="shortcut-item">
-                            <span>Toggle Theme</span>
-                            <kbd>Ctrl</kbd>
-                            <kbd>Shift</kbd>
-                            <kbd>D</kbd>
-                        </div>
-
-                        <div class="shortcut-item">
-                            <span>Export PDF</span>
-                            <kbd>Ctrl</kbd>
-                            <kbd>Shift</kbd>
-                            <kbd>E</kbd>
-                        </div>
-
-                        <div class="shortcut-item">
-                            <span>Open Keyboard Shortcuts</span>
-                            <kbd>Ctrl</kbd>
-                            <kbd>Shift</kbd>
-                            <kbd>K</kbd>
-                        </div>
+                        <img
+                            id="image-modal-content"
+                            src=""
+                            class="img-fluid rounded"
+                            alt="Image preview">
 
                     </div>
 
@@ -291,30 +350,34 @@
             </div>
 
         </div>
-    </div>
 
+    <!-- #endregion Image Modal -->
 
     <!-- Back to top button -->
-    <button id="back-to-top"
-            class="back-to-top"
-            type="button"
-            aria-label="Back to top"
-            title="Back to top">
 
-        <i class="bi bi-arrow-up" aria-hidden="true"></i>
+        <button id="back-to-top"
+                class="back-to-top"
+                type="button"
+                aria-label="Back to top"
+                title="Back to top">
 
-    </button>
+            <i class="bi bi-arrow-up" aria-hidden="true"></i>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+        </button>
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
 
     <!-- Markdown parser -->
-    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+
+        <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 
     <!-- Syntax highlighting -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.12.0/highlight.min.js"></script>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.12.0/highlight.min.js"></script>
 
     <!-- Application -->
-    <script src="./app.js"></script>
+
+        <script src="./app.js"></script>
 
 </body>
 
