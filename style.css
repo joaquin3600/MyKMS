@@ -1200,41 +1200,48 @@
     text-align: center;
 }
 
-/* Light Mode */
+    /* Light Mode */
 
-    #shortcuts-modal .modal-content {
-        background: var(--surface-bg);
-        color: var(--text-primary);
-        border: 1px solid var(--border-color);
-    }
+        #shortcuts-modal .modal-content,
+        #image-modal .modal-content {
+            background: var(--surface-bg);
+            color: var(--text-primary);
+            border: 1px solid var(--border-color);
+        }
 
-    #shortcuts-modal .modal-header {
-        border-bottom: 1px solid var(--border-color);
-    }
+        #shortcuts-modal .modal-header,
+        #image-modal .modal-header {
+            border-bottom: 1px solid var(--border-color);
+        }
 
-    #shortcuts-modal .modal-title {
-        color: var(--text-primary);
-    }
+        #shortcuts-modal .modal-title,
+        #image-modal .modal-title {
+            color: var(--text-primary);
+        }
 
-    #shortcuts-modal .btn-close {
-        filter: none;
-    }
-
+        #shortcuts-modal .btn-close,
+        #image-modal .btn-close {
+            filter: none;
+        }
+        
     /* Dark Mode */
 
-    [data-theme="dark"] #shortcuts-modal .modal-content {
-        background: var(--surface-bg);
-        color: var(--text-primary);
-        border-color: var(--border-color);
-    }
+        [data-theme="dark"] #shortcuts-modal .modal-content,
+        [data-theme="dark"] #image-modal .modal-content {
+            background: var(--surface-bg);
+            color: var(--text-primary);
+            border-color: var(--border-color);
+        }
 
-    [data-theme="dark"] #shortcuts-modal .modal-header {
-        border-bottom-color: var(--border-color);
-    }
+        [data-theme="dark"] #shortcuts-modal .modal-header,
+        [data-theme="dark"] #image-modal .modal-header {
+            border-bottom-color: var(--border-color);
+        }
 
-    [data-theme="dark"] #shortcuts-modal .btn-close {
-        filter: invert(1) grayscale(100%) brightness(200%);
-    }
+        [data-theme="dark"] #shortcuts-modal .btn-close,
+        [data-theme="dark"] #image-modal .btn-close {
+            filter: invert(1) grayscale(100%) brightness(200%);
+        }
 
 /* #endregion Keyboard Shortcuts */
 
