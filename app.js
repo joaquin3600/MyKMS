@@ -1,5 +1,6 @@
 
 let categories = [];
+let currentDocument = null;
 const shortcutsButton = document.getElementById("shortcuts-button");
 const shortcutsModalElement = document.getElementById("shortcuts-modal");
 
@@ -7,7 +8,6 @@ const shortcutsModal = new bootstrap.Modal(shortcutsModalElement);
 const breadcrumb    = document.getElementById("breadcrumb");
 const backToTop     = document.getElementById("back-to-top");
 const navigation    = document.getElementById("navigation");
-const title         = document.getElementById("title");
 const content       = document.getElementById("content");
 const search        = document.getElementById("search");
 const tocSidebar    = document.getElementById("table-of-contents");
@@ -19,6 +19,7 @@ const sidebarToggle = document.getElementById("sidebar-toggle");
 const main = document.querySelector("main");
 const exportPdfButton = document.getElementById("export-pdf");
 const collapseH2Toggle = document.getElementById("collapse-h2-toggle");tocSidebar.hidden   = true;
+const resetChecklistButton = document.getElementById("reset-checklist-button");
 const advancedSearchButton = document.getElementById("advanced-search-button");    
 
 fetch("./data.json")
@@ -129,7 +130,7 @@ async function loadDocument(doc, sectionIndex = null) {
         const html = await response.text();
 
         setActiveDocument(doc);
-        title.textContent = doc.title;
+        currentDocument = doc;
         updateBreadcrumb(doc);
         content.innerHTML = html;
         applyContentHierarchy();
@@ -283,7 +284,50 @@ function applyContentHierarchy() {
         collapseAllH2
     );
 
+    resetChecklistButton.addEventListener(
+        "click",
+        resetChecklist
+    );
+
 /* #endregion */
+
+/* #region reset Checklist */
+
+    function resetChecklist() {
+
+        if (!currentDocument || !currentDocument.checklist) {
+            return;
+        }
+
+        const checkboxes = content.querySelectorAll(
+            ".checklist-checkbox"
+        );
+
+        checkboxes.forEach(checkbox => {
+
+            checkbox.checked = false;
+
+            const heading = checkbox.closest(
+                ".checklist-heading"
+            );
+
+            if (!heading) {
+                return;
+            }
+
+            const storageKey =
+                `mykms-checklist:${currentDocument.file}:${heading.id}`;
+
+            localStorage.removeItem(storageKey);
+
+        });
+
+    }
+
+/* #endregion */
+
+
+
 
 /* #region Code Highlighting */
 
@@ -630,10 +674,10 @@ search.addEventListener("input", () => {
         themeToggle.setAttribute("aria-pressed", String(isDark));
         themeToggle.setAttribute(
             "aria-label",
-            isDark ? "Switch to light mode" : "Switch to dark mode"
+            isDark ? "Switch to light mode (Ctrl + Shift + D)" : "Switch to dark mode (Ctrl + Shift + D)"
         );
 
-        themeToggle.title = isDark ? "Switch to light mode" : "Switch to dark mode";
+        themeToggle.title = isDark ? "Switch to light mode (Ctrl + Shift + D)" : "Switch to dark mode (Ctrl + Shift + D)";
 
         themeToggleIcon.className = isDark
             ? "bi bi-sun"
@@ -886,6 +930,17 @@ search.addEventListener("input", () => {
             return;
         }
 
+        // Ctrl + Shift + R → Reset Checklist
+        if (
+            event.ctrlKey &&
+            event.shiftKey &&
+            key === "r"
+        ) {
+            event.preventDefault();
+            resetChecklist();
+            return;
+        }
+
         // Ctrl + Shift + K → Keyboard Shortcuts
         if (
             event.ctrlKey &&
@@ -988,11 +1043,12 @@ async function buildSearchIndex() {
 
 function showAdvancedSearch() {
 
-    title.textContent = "Advanced Search";
+
 
     breadcrumb.innerHTML = "";
 
     content.innerHTML = `
+        <h1> Advanced Search </h1>
         <div class="advanced-search-page">
 
             <div class="advanced-search-header">
@@ -1020,7 +1076,6 @@ function showAdvancedSearch() {
 
         </div>
     `;
-
 
     tocSidebar.hidden = true;
 

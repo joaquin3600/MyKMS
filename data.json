@@ -1,5 +1,14 @@
-
 [
+    {
+        "category": "Blender",
+        "documents": [
+            {
+                "title": "Architectural",
+                "file": "Documents/Blender/Architectural.html",
+                "checklist": true
+            }
+        ]
+    },
     {
         "category": "Main",
         "documents": [
@@ -8,7 +17,7 @@
                 "file": "Documents/Main/CheatSheet.html"
             }
         ]
-    },   
+    },
     {
         "category": "Programming",
         "documents": [
