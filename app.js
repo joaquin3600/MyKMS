@@ -171,7 +171,7 @@ async function loadDocument(doc, sectionIndex = null) {
 function applyContentHierarchy() {
 
     const elements = content.querySelectorAll(
-        "h1, h2, h3, h4, p, ul, ol, table, .code-block"
+        "h1, h2, h3, h4, p, ul, ol, table, .code-block, .row"
     );
 
     let currentLevel = 1;
