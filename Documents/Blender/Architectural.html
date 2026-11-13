@@ -2,6 +2,9 @@
 <!-- checklist: true -->
 <h1>Architectural Modeling In Blender Part 1</h1>
 
+
+    <!-- #region  Add a plane for reference-->
+
     <h2>Add a plane for reference</h2>
 
         <p>In order to model our house, we will need to insert a plane for reference in our project.</p>
@@ -109,6 +112,10 @@
                 </div>
             </div>
 
+    <!-- #endregion  -->
+
+    <!-- #region  Scale the plane to real metrics-->
+      
     <h2> Scale the plane to real metrics </h3>
 
         <p>To ensure we are modeling our house with proper scale size, we must configure our projects to have a correct metric, and transform our Plane
@@ -279,3 +286,181 @@
 
                 </div>
             </div>
+
+    <!-- #endregion  -->
+
+    <!-- #region  Modeling the walls-->
+
+    <h2> Modeling the walls </h2>
+
+        <p>We will now begin by modeling the foundation of the house, removing, the vertex line we created and start doing the walls.</p>
+
+        <h3> Remove the line vertex </h3>
+
+            <p>We will remove the line vertex from our project, since we all we wanted from it was a correct scale reference.</p>
+
+        <h3> Add a plane in a corner </h3>
+
+            <p>We will and now a plane in a corner so that we can start extruding from that point.</p>
+
+            <p>From now on we will start extruding from that point, until we fill the house walls. It is important to follow the next points</p>
+
+            <ol>
+                <li>
+                    put planes in corners
+                </li>
+
+                <li>
+                    extrude a new extension on windows and doors
+                </li>
+            </ol>
+
+            <div class="row g-2">
+                <div class="col-3 d-flex justify-content-center">
+                    <img
+                        src="Documents/Blender/images/Image13.webp"
+                        class="img-fluid rounded border"
+                        style="height: 250px; object-fit: contain; cursor: pointer;"
+                        data-bs-toggle="modal"
+                        data-bs-target="#image-modal"
+                        data-image="Documents/Blender/images/Image13.webp"
+                    >
+                </div>
+                <div class="col-3 d-flex justify-content-center">
+                    <img
+                        src="Documents/Blender/images/Image14.webp"
+                        class="img-fluid rounded border"
+                        style="height: 250px; object-fit: contain; cursor: pointer;"
+                        data-bs-toggle="modal"
+                        data-bs-target="#image-modal"
+                        data-image="Documents/Blender/images/Image14.webp"
+                    >
+                </div>
+                <div class="col-3 d-flex justify-content-center">
+
+                </div>
+                <div class="col-3 d-flex justify-content-center">
+                  
+                </div>
+            </div>
+
+    <!-- #endregion  -->
+
+    <!-- #region  Extrude the height of the walls -->
+
+    <h2> Extrude the height of the walls </h2>
+
+        <p>for our next step we will extrude up our walls, excluding doors and windows.</p>
+
+        <h3> Extrude up our walls </h3>
+
+            <p>We will only select our walls faces and extrude them in Y axis.</p>
+
+        <h3> Extrude up our doors to 3/4 hight of the walls  </h3>
+
+            <p>We will only select our walls faces and extrude them in Y axis.</p>
+
+        <h3> Extrude up our windows to 1/4, 2/4, and 1/4 of the walls  </h3>
+
+            <p>We will only select our windows faces and extrude them in Y axis.</p>
+
+        <h3> Delete faces of our doors and windows  </h3>
+
+            <p>We will only select the faces of our doors and windows and then press x, and select faces.</p>
+
+            <div class="row g-2">
+                <div class="col-3 d-flex justify-content-center">
+                    <img
+                        src="Documents/Blender/images/Image14.webp"
+                        class="img-fluid rounded border"
+                        style="height: 250px; object-fit: contain; cursor: pointer;"
+                        data-bs-toggle="modal"
+                        data-bs-target="#image-modal"
+                        data-image="Documents/Blender/images/Image14.webp"
+                    >
+                </div>
+                <div class="col-3 d-flex justify-content-center">
+                    <img
+                        src="Documents/Blender/images/Image15.webp"
+                        class="img-fluid rounded border"
+                        style="height: 250px; object-fit: contain; cursor: pointer;"
+                        data-bs-toggle="modal"
+                        data-bs-target="#image-modal"
+                        data-image="Documents/Blender/images/Image15.webp"
+                    >
+                </div>
+                <div class="col-3 d-flex justify-content-center">
+                    <img
+                        src="Documents/Blender/images/Image16.webp"
+                        class="img-fluid rounded border"
+                        style="height: 250px; object-fit: contain; cursor: pointer;"
+                        data-bs-toggle="modal"
+                        data-bs-target="#image-modal"
+                        data-image="Documents/Blender/images/Image16.webp"
+                    >
+
+                </div>
+                <div class="col-3 d-flex justify-content-center">
+
+                    <img
+                        src="Documents/Blender/images/Image17.webp"
+                        class="img-fluid rounded border"
+                        style="height: 250px; object-fit: contain; cursor: pointer;"
+                        data-bs-toggle="modal"
+                        data-bs-target="#image-modal"
+                        data-image="Documents/Blender/images/Image17.webp"
+                    >
+                  
+                </div>
+            </div>
+
+        <h3>  Refill the gaps in our windows  </h3>
+
+            <p>Removing our faces will leave gaps in the windows which we need to fill. for this we will follow the next steps:</p>
+
+            <ol>
+                <li>
+                    Edit Mode
+                    →
+                    <kbd>Click 2</kbd>
+                </li>
+
+                <li>
+                    Select our edges →
+                    <kbd>F</kbd>
+                </li>
+            </ol>
+
+            <div class="row g-2">
+                <div class="col-3 d-flex justify-content-center">
+                    <img
+                        src="Documents/Blender/images/Image18.webp"
+                        class="img-fluid rounded border"
+                        style="height: 250px; object-fit: contain; cursor: pointer;"
+                        data-bs-toggle="modal"
+                        data-bs-target="#image-modal"
+                        data-image="Documents/Blender/images/Image18.webp"
+                    >
+                </div>
+                <div class="col-3 d-flex justify-content-center">
+                    <img
+                        src="Documents/Blender/images/Image19.webp"
+                        class="img-fluid rounded border"
+                        style="height: 250px; object-fit: contain; cursor: pointer;"
+                        data-bs-toggle="modal"
+                        data-bs-target="#image-modal"
+                        data-image="Documents/Blender/images/Image19.webp"
+                    >
+                </div>
+                <div class="col-3 d-flex justify-content-center">
+
+                </div>
+                <div class="col-3 d-flex justify-content-center">
+
+                 
+                  
+                </div>
+            </div>
+
+    <!-- #endregion  -->
+

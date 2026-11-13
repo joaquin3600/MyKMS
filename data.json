@@ -6,6 +6,11 @@
                 "title": "Architectural",
                 "file": "Documents/Blender/Architectural.html",
                 "checklist": true
+            },
+            {
+                "title": "Architectural2",
+                "file": "Documents/Blender/Architectural2.html",
+                "checklist": true
             }
         ]
     },
